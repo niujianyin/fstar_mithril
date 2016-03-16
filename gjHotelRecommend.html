@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>伙力特惠五星</title>
+  <link rel="import" href="htmls/commonHead.html?__inline">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="less/common.less" type="text/css">
+</head>
+<body>
+  <div class="common-loading" id="loading" style="display: block;">
+    <div id="loadingBg"></div>
+    <div id="loadMain">
+      <div id="loadCircle"></div>
+      <div id="loadHotel"></div>
+      <div id="loadTxt">正在加载...</div>
+    </div>
+  </div>
+  <!-- js要缓存 -->
+  <script type="text/javascript">
+    window.domainName = location.origin;
+    window.apiRootPath = domainName;
+    window.domainName = 'http://43.241.208.207:9000';
+  </script>
+  <script src="scripts/lib/lib.js"></script>
+  <script src="scripts/common/common.js"></script>
+  <script>
+  (function() {
+    // 正式：https://hotel.huoli.com/gjHotelRecommend.html?tripparam=
+    // 测试：https://hotel-test.rsscc.com/gjHotelRecommend.html?tripparam=
+
+    //   参数名：tripparam
+    // 格式：json + base64 （未base64如下，传入时需要base64）
+    // var tripparam11 = {
+    //     "order_id": "E559221978 ",
+    // "sub_order_id": "E5592219781050003 ",
+    // "train_no": "6056",
+    //     "guid": "9405D354-54E9-4B37-A61D-84E67DDC91A4",
+    // "page": "trip",//trip表示行程页面，order表示订单页面,
+    // "depart_code": "BTC",
+    // "depart_name": "上海南",
+    // "depart_date": "2015-12-22",
+    //     "depart_time": "08:10",
+    // "arrive_code": "BDC",
+    // "arrive_name": "北京南",
+    // "arrive_date": "2015-12-22",//该字段仅供参考，不能保证一定有值
+    // "arrive_time": "08:29"
+    //  }
+
+    /*
+     * $Id: base64.js,v 2.15 2014/04/05 12:58:57 dankogai Exp dankogai $
+     *
+     *  Licensed under the MIT license.
+     *    http://opensource.org/licenses/mit-license
+     *
+     *  References:
+     *    http://en.wikipedia.org/wiki/Base64
+     */
+    // https://github.com/dankogai/js-base64
+    (function(global) {
+        'use strict';
+        // existing version for noConflict()
+        var _Base64 = global.Base64;
+        var version = "2.1.9";
+        // if node.js, we use Buffer
+        var buffer;
+        if (typeof module !== 'undefined' && module.exports) {
+            try {
+                buffer = require('buffer').Buffer;
+            } catch (err) {}
+        }
+        // constants
+        var b64chars
+            = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+        var b64tab = function(bin) {
+            var t = {};
+            for (var i = 0, l = bin.length; i < l; i++) t[bin.charAt(i)] = i;
+            return t;
+        }(b64chars);
+        var fromCharCode = String.fromCharCode;
+        // encoder stuff
+        var cb_utob = function(c) {
+            if (c.length < 2) {
+                var cc = c.charCodeAt(0);
+                return cc < 0x80 ? c
+                    : cc < 0x800 ? (fromCharCode(0xc0 | (cc >>> 6))
+                                    + fromCharCode(0x80 | (cc & 0x3f)))
+                    : (fromCharCode(0xe0 | ((cc >>> 12) & 0x0f))
+                       + fromCharCode(0x80 | ((cc >>>  6) & 0x3f))
+                       + fromCharCode(0x80 | ( cc         & 0x3f)));
+            } else {
+                var cc = 0x10000
+                    + (c.charCodeAt(0) - 0xD800) * 0x400
+                    + (c.charCodeAt(1) - 0xDC00);
+                return (fromCharCode(0xf0 | ((cc >>> 18) & 0x07))
+                        + fromCharCode(0x80 | ((cc >>> 12) & 0x3f))
+                        + fromCharCode(0x80 | ((cc >>>  6) & 0x3f))
+                        + fromCharCode(0x80 | ( cc         & 0x3f)));
+            }
+        };
+        var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
+        var utob = function(u) {
+            return u.replace(re_utob, cb_utob);
+        };
+        var cb_encode = function(ccc) {
+            var padlen = [0, 2, 1][ccc.length % 3],
+            ord = ccc.charCodeAt(0) << 16
+                | ((ccc.length > 1 ? ccc.charCodeAt(1) : 0) << 8)
+                | ((ccc.length > 2 ? ccc.charCodeAt(2) : 0)),
+            chars = [
+                b64chars.charAt( ord >>> 18),
+                b64chars.charAt((ord >>> 12) & 63),
+                padlen >= 2 ? '=' : b64chars.charAt((ord >>> 6) & 63),
+                padlen >= 1 ? '=' : b64chars.charAt(ord & 63)
+            ];
+            return chars.join('');
+        };
+        var btoa = global.btoa ? function(b) {
+            return global.btoa(b);
+        } : function(b) {
+            return b.replace(/[\s\S]{1,3}/g, cb_encode);
+        };
+        var _encode = buffer ? function (u) {
+            return (u.constructor === buffer.constructor ? u : new buffer(u))
+            .toString('base64')
+        }
+        : function (u) { return btoa(utob(u)) }
+        ;
+        var encode = function(u, urisafe) {
+            return !urisafe
+                ? _encode(String(u))
+                : _encode(String(u)).replace(/[+\/]/g, function(m0) {
+                    return m0 == '+' ? '-' : '_';
+                }).replace(/=/g, '');
+        };
+        var encodeURI = function(u) { return encode(u, true) };
+        // decoder stuff
+        var re_btou = new RegExp([
+            '[\xC0-\xDF][\x80-\xBF]',
+            '[\xE0-\xEF][\x80-\xBF]{2}',
+            '[\xF0-\xF7][\x80-\xBF]{3}'
+        ].join('|'), 'g');
+        var cb_btou = function(cccc) {
+            switch(cccc.length) {
+            case 4:
+                var cp = ((0x07 & cccc.charCodeAt(0)) << 18)
+                    |    ((0x3f & cccc.charCodeAt(1)) << 12)
+                    |    ((0x3f & cccc.charCodeAt(2)) <<  6)
+                    |     (0x3f & cccc.charCodeAt(3)),
+                offset = cp - 0x10000;
+                return (fromCharCode((offset  >>> 10) + 0xD800)
+                        + fromCharCode((offset & 0x3FF) + 0xDC00));
+            case 3:
+                return fromCharCode(
+                    ((0x0f & cccc.charCodeAt(0)) << 12)
+                        | ((0x3f & cccc.charCodeAt(1)) << 6)
+                        |  (0x3f & cccc.charCodeAt(2))
+                );
+            default:
+                return  fromCharCode(
+                    ((0x1f & cccc.charCodeAt(0)) << 6)
+                        |  (0x3f & cccc.charCodeAt(1))
+                );
+            }
+        };
+        var btou = function(b) {
+            return b.replace(re_btou, cb_btou);
+        };
+        var cb_decode = function(cccc) {
+            var len = cccc.length,
+            padlen = len % 4,
+            n = (len > 0 ? b64tab[cccc.charAt(0)] << 18 : 0)
+                | (len > 1 ? b64tab[cccc.charAt(1)] << 12 : 0)
+                | (len > 2 ? b64tab[cccc.charAt(2)] <<  6 : 0)
+                | (len > 3 ? b64tab[cccc.charAt(3)]       : 0),
+            chars = [
+                fromCharCode( n >>> 16),
+                fromCharCode((n >>>  8) & 0xff),
+                fromCharCode( n         & 0xff)
+            ];
+            chars.length -= [0, 0, 2, 1][padlen];
+            return chars.join('');
+        };
+        var atob = global.atob ? function(a) {
+            return global.atob(a);
+        } : function(a){
+            return a.replace(/[\s\S]{1,4}/g, cb_decode);
+        };
+        var _decode = buffer ? function(a) {
+            return (a.constructor === buffer.constructor
+                    ? a : new buffer(a, 'base64')).toString();
+        }
+        : function(a) { return btou(atob(a)) };
+        var decode = function(a){
+            return _decode(
+                String(a).replace(/[-_]/g, function(m0) { return m0 == '-' ? '+' : '/' })
+                    .replace(/[^A-Za-z0-9\+\/]/g, '')
+            );
+        };
+        var noConflict = function() {
+            var Base64 = global.Base64;
+            global.Base64 = _Base64;
+            return Base64;
+        };
+        // export Base64
+        global.Base64 = {
+            VERSION: version,
+            atob: atob,
+            btoa: btoa,
+            fromBase64: decode,
+            toBase64: encode,
+            utob: utob,
+            encode: encode,
+            encodeURI: encodeURI,
+            btou: btou,
+            decode: decode,
+            noConflict: noConflict
+        };
+        // if ES5 is available, make Base64.extendString() available
+        if (typeof Object.defineProperty === 'function') {
+            var noEnum = function(v){
+                return {value:v,enumerable:false,writable:true,configurable:true};
+            };
+            global.Base64.extendString = function () {
+                Object.defineProperty(
+                    String.prototype, 'fromBase64', noEnum(function () {
+                        return decode(this)
+                    }));
+                Object.defineProperty(
+                    String.prototype, 'toBase64', noEnum(function (urisafe) {
+                        return encode(this, urisafe)
+                    }));
+                Object.defineProperty(
+                    String.prototype, 'toBase64URI', noEnum(function () {
+                        return encode(this, true)
+                    }));
+            };
+        }
+        // that's it!
+        if (global['Meteor']) {
+           Base64 = global.Base64; // for normal export in Meteor.js
+        }
+    })(this);
+
+
+    var gjHotelRecommend = {
+      getQueryString: function(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null) return decodeURIComponent(r[2]); return null;
+      }, 
+      go: function(trip){
+        if(!trip){
+          window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+          return;
+        }
+        var self = this;
+        var arrdate = trip.arrive_date;
+        var arrName = trip.arrive_name;
+        var arrCode = trip.arrive_code;
+        // console.log(trip);
+        // return;
+        if(arrCode){
+          var appName = util.cookie.getItem('appName');
+          var from = 'gtgj';
+          if(appName == 'hbgj'){
+            from = 'hbgj';
+          } else if (window.location.href.indexOf('from=hbgj') >= 0) {
+            from = 'hbgj';
+          } 
+          var dataReq = {
+            arrive_code: arrCode,
+            arrive_name: arrName,
+            st: 12,
+            from: from
+          };
+          m.request({
+            method: 'GET',
+            // rest/hotel/getCityByTrainCode?arriveCode=xxx
+            url: util.INTERFACE_GETHOTELMENUDATA,  
+            data: dataReq,
+            background: true
+          }).then(function(data) {
+            if (data.name && data.id) {
+              var cityName = data.name;
+              var cityId = data.id;
+              util.cookie.setItem("lastCity", JSON.stringify({
+                name: cityName,
+                cityid: cityId
+              }));
+
+              if(trip.arrive_date){
+                var checkIn = trip.arrive_date,checkOut;
+                try{
+                  checkIn = new Date(checkIn.replace(/-/g,"/"));
+                }catch(e){
+                  checkIn = new Date();
+                }
+                
+                util.reloadByTimeLocal(checkIn);
+                if(util.isReload){
+                  checkIn = new Date();
+                }
+                checkOut = util.nextDate(checkIn, 1);
+                
+                var listParamsObj = {
+                  checkIn: checkIn.getTime(),
+                  checkOut: checkOut.getTime(),
+                  city: cityName,
+                  keyword: '',
+                  reset: 'yes',
+                  from: from,
+                  tripparam: 1
+                };
+                var listParamsStr = m.route.buildQueryString(listParamsObj);
+                window.location.replace(location.origin +'/index.html#list?'+listParamsStr);
+              } else {
+                window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+              }
+            } else {
+              window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+            }
+          }, function() {
+            util.alert({
+              content: '网络不给力，请稍后再试试吧',
+              ok: '知道了'
+            });
+            util.hideLoading();
+          });
+        } else {
+          window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+        }
+      },
+      controller: function() {
+        // url   https://hotel.rsscc.cn/gjHotelRecommend.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
+        // url   http://127.0.0.1:8080/gjHotelRecommend.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
+        var self = this;
+        var tripparam = self.getQueryString('tripparam');
+        var tripStr;
+        var tripObj;
+        try{
+          tripStr = Base64.decode(tripparam);
+          tripObj = JSON.parse(tripStr);
+        }catch(e){
+          tripStr='';
+          tripObj=null;
+        }
+        
+        self.go(tripObj);
+      },
+      init: function(){
+        var self = this;
+        self.controller();
+      }
+    };
+    gjHotelRecommend.init();
+
+  })();
+  </script>
+</body>
+</html>

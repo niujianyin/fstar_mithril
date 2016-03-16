@@ -1,0 +1,82 @@
+@import url('./constant.less');
+
+.userPassengers-w{
+  color: #252525;
+  font-size:0.3rem;
+}
+
+/*.userPassengers-w .common-header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:10;
+}*/
+.userPassengers-list{
+  /*padding-top:5rem;*/
+  margin:0 10px;
+}
+.userPassengers-list li{
+  position:relative;
+  padding-right: 0.88rem;
+  line-height:0.88rem;
+}
+
+.userPassengers-list li:after{
+  content:'';
+  display:block;
+  height: 1px;
+  -webkit-transform:scaleY(0.5);
+  background:@borderColor;
+  position: absolute;
+  bottom:0;
+  left: 0;
+  width: 100%;
+}
+
+
+.userPassengers-del{
+  position:absolute;
+  right:0;
+  top:0;
+  width:0.88rem;
+  height:0.88rem;
+}
+.userPassengers-del .common-icon-input-cancel{
+  position:absolute;
+  top:50%;
+  left:50%;
+  margin:-7px 0 0 -7px;
+}
+
+.userPassengers-list li.userPassengers-list-item{ padding-left: 36px; padding-right: 0px; position: relative; }
+/*.userPassengers-radio-circle-big{ position: absolute; left: 10px; top: 50%; width: 16px; height: 16px; background-color: #fff; border: 1px solid #4889DB; border-radius: 8px; margin-top: -8px;}
+.userPassengers-radio-circle-small{ display: none;}
+.userPassengers-radio-select .userPassengers-radio-circle-small{ display: block; position: absolute; left: 15px; top: 50%; width: 8px; height: 8px; background-color: #4488CC; border-radius: 4px; margin-top: -3px;}*/
+
+.userPassengers-arrow-right{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
+}
+
+
+/*.userPassengers-radio-selected .userPassengers-radio-circle-big{ background-color: #919294; border:1px solid #919294;}
+.userPassengers-radio-selected .userPassengers-name{ color: #919294; }*/
+
+.userPassengers-checkbox-square{ position: absolute; left: 10px; top: 50%; width: 17px; height: 17px;  margin-top: -8px;}
+.userPassengers-radio-selected .userPassengers-name{ color: #919294; }
+
+.h152{ height: 1.52rem;}
+.h20{ height: 0.4rem;}
+.mt20 {
+  margin-top: 0.4rem!important;
+}
+.userPassengers-fixed{
+  position: fixed;
+  bottom: 0;
+  height: 1.52rem;
+  left: 0;
+  right: 0;
+  background-color: @white;
+}

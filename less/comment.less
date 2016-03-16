@@ -1,0 +1,154 @@
+@import url('./constant.less');
+
+.commentApp-w{
+  background-color: @white;
+  min-height: 100%;
+  overflow: hidden;
+}
+.commentApp-head{
+  padding-top: 0.3rem;
+}
+.commentApp-ratetotal{
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.commentApp-hold{
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  border-radius: 100%;
+  background-color: #e1e1e1;
+}
+.commentApp-hold1{
+  clip: rect(0px,30px,60px,0px);
+}
+.commentApp-hold2{
+  clip: rect(0px,60px,60px,30px);
+}
+.commentApp-pie{
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  border-radius: 100%;
+  background-color: @blue;
+}
+#commentApp-pie1{
+  clip: rect(0px,30px,60px,0px);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+#commentApp-pie2{
+  clip: rect(0px,60px,60px,30px);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.commentApp-total{
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  width: 52px;
+  height: 52px;
+  line-height: 52px;
+  margin-left: -26px;
+  border-radius: 100%;
+  background-color: @white;
+  text-align: center;
+  font-size: 0.24rem;
+  color: @blue;
+}
+.commentApp-total .numFont{
+  font-size: 0.42rem;
+}
+.commentApp-searchtotal{
+  height: 0.5rem;
+  line-height: 0.5rem;
+  font-size: 0.26rem;
+  text-align: center;
+}
+
+.commentApp-noHotel{
+  text-align: center;
+  line-height: 1rem;
+  height: 1rem;
+  font-size: 0.32rem;
+}
+
+.commentApp-list{
+  padding-left: 0.2rem;
+}
+.commentApp-list li{
+  padding-right: 0.2rem;
+  position: relative;
+}
+.commentApp-list li:after{
+  height: 1px;
+  background: @borderColor;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.commentApp-item-top{
+  padding-top: 0.2rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  color: @colorGray;
+  font-size: 0.26rem;
+}
+.commentApp-item-score{
+  color: @blue;
+}
+.commentApp-item-score .numFont{
+  font-size: 0.32rem;
+}
+.commentApp-item-time{
+  padding: 0 0.32rem 0 0.18rem;
+}
+.commentApp-item-roomtype{}
+.commentApp-item-txt{
+  font-size: 0.28rem;
+  line-height: 0.48rem;
+  padding-top: 0.1rem;
+}
+.commentApp-item-bottom{
+  line-height: 0.5rem;
+  color: @colorGray;
+  font-size: 0.24rem;
+  padding: 0.12rem 0 0.18rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

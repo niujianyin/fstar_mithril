@@ -1,0 +1,220 @@
+@import url('./constant.less');
+
+.indexApp-search{
+  background: #fff;
+  padding-left: 0.2rem;
+}
+
+.indexApp-search-item{
+  .boxflex();
+  padding: 0.3rem 0.2rem 0.3rem 0;
+  min-height: 1.2rem;
+  box-sizing: border-box;
+}
+.indexApp-search-item1{
+  padding: 0.2rem 0.2rem 0.2rem 0;
+  height: 1.6rem;
+}
+.indexApp-search-label{
+  width: 40px;
+  position: relative;
+  height: 0.6rem;
+}
+
+.indexApp-search-label.label2{
+  height: 1rem;
+}
+
+.indexApp-search-label>div{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -10px 0 0 -10px;
+}
+
+.indexApp-search-label.date{
+  line-height: 0.8rem;
+}
+
+.indexApp-search-content{
+  -webkit-box-flex: 1;
+  position: relative;
+}
+
+.indexApp-search-content .common-icon-more-right{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -5px;
+}
+
+.indexApp-search-content .common-icon-input-cancel{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
+}
+
+.indexApp-search-text{
+  margin-right: 0.4rem;
+  font-size: 0.42rem;
+  line-height: 0.6rem;
+  height: 0.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // font-weight: 500;
+}
+
+.indexApp-search-date-box{
+  margin-right: 1rem;
+  font-size: 0.42rem;
+  line-height: 0.6rem;
+}
+
+.indexApp-search-loc-text{
+  font-size: 0.32rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.indexApp-search-text.default-text{
+  color: @colorGray1;
+}
+
+.indexApp-search-date-count{
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -0.2rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+  color: @blue;
+}
+
+.indexApp-search-date{
+  line-height: 0.6rem;
+  height: 0.6rem;
+   .boxflex();
+}
+.indexApp-search-date span{
+  display: block;
+  font-weight: 500;
+}
+.indexApp-search-date span:last-child{
+  font-size: 0.28rem;
+  margin-left: 0.2rem;
+  color: @colorGray;
+  .flex();
+}
+
+.indexApp-search-date i{
+  font-style: normal;
+  color: @blue;
+  font-size: 0.36rem;
+}
+
+.indexApp-search-go{
+  -webkit-box-flex: 1;
+  text-align: center;
+  line-height: 0.86rem;
+  color: #fff;
+  border-radius: 3px;
+  background: @blue;
+  font-size: 0.36rem;
+}
+
+.indexApp-bill{
+  margin: 0.2rem 0;
+  padding: 0 0.2rem;
+  background: #fff;
+  .boxflex();
+  position: relative;
+  height: 1rem;
+  line-height: 1rem;
+}
+.indexApp-bill:before{
+  content: '';
+  height: 1px;
+  -webkit-transform:scaleY(0.5);
+  background: @borderColor;
+  display: block;
+  position: absolute;
+  width:100%;
+  top: 0;
+  left: 0;
+}
+
+.indexApp-bill:after{
+  content: '';
+  height: 1px;
+  -webkit-transform:scaleY(0.5);
+  background: @borderColor;
+  display: block;
+  position: absolute;
+  width:100%;
+  bottom: 0;
+  left: 0;
+}
+
+
+.indexApp-bill-label{
+  height: 1rem;
+  width: 40px;
+  position: relative;
+}
+.indexApp-bill-content{
+  line-height: 1rem;
+  font-size: 0.36rem;
+}
+.indexApp-bill-label .common-icon-mbill{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -8px;
+}
+
+.indexApp-bill .common-icon-more-right{
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -5px;
+}
+
+.indexApp-bill-count{
+  position: absolute;
+  right: 0.46rem;
+  top: 50%;
+  margin-top: -10px;
+  width: 20px;
+  height: 20px;
+  font-size: 0.26rem;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 100%;
+  background: @red;
+  color: @white;
+}
+
+.indexApp-search-loc{
+  width: 68px;
+  text-align: center;
+  height: 0.6rem;
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 0.4rem;
+  font-size: 0.28rem;
+  color: @blue;
+}
+.indexApp-icon-myloc{
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  margin-left: -7px;
+}
+
+@import url('./cityFilter.less');
+@import url('./dateSelector.less');
+@import url('./searchApp.less');
+@import url('./list.less');

@@ -1,0 +1,119 @@
+@import url('./constant.less');
+
+.cityFilter-w{ min-height: 100%;}
+.cityFilter-hot{background: #fff;}
+.cityFilter-other{background: #fff;}
+
+.cityFilter-city-box{ background-color: @bodyBackground; height: 0.52rem; line-height: 0.52rem;}
+.cityFilter-city-letter{ padding-left: 0.2rem; font-size: 0.28rem;}
+.cityFilter-head{
+  line-height: 0.52rem; 
+  padding: 0 0.2rem;
+  font-size: 0.28rem;
+  background-color: @bodyBackground;
+  position: relative;
+}
+.cityFilter-head:before{
+  height: 1px;
+  background: #e5e5e5;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  content: ''
+}
+// .cityFilter-head:after {
+//   height: 1px;
+//   background: #e5e5e5;
+//   -webkit-transform: scaleY(0.5);
+//   transform: scaleY(0.5);
+//   clear: both;
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   bottom: -1px;
+//   content: ''
+// }
+.cityFilter-city{font-size: 0.32rem; line-height: 0.88rem;}
+.cityFilter-hot .cityFilter-citys{
+  padding-top: 0.2rem;
+  padding-right: 0.6rem;
+}
+.cityFilter-hot .cityFilter-city{
+  float: left; 
+  line-height: 0.7rem; 
+  border-radius: 3px; 
+  // margin: 0rem 0 0.2rem 0.2rem; 
+  // padding: 0 0.4rem; 
+  border:1px solid #d9d9d9; 
+  background: #fff;
+  text-align: center;
+  margin: 0 0 0.2rem 5%;
+  width: 27%;
+}
+.cityFilter-other .cityFilter-city{}
+
+.cityFilter-hot .cityFilter-city.selected{
+  color: @blue; border: 1px solid @blue;
+}
+.cityFilter-other .cityFilter-city.selected{
+  color: @blue;
+}
+
+.cityFilter-city-row{ margin-left: 0.2rem;}
+
+.cityFilter-letters-box{ position: fixed; right: 0px; top: 0px; bottom: 0px; overflow: hidden; background-color: #fff; width: 0.6rem; z-index: 101; height: 100%;}
+.cityFilter-letters{ overflow: auto; position: absolute; top: 50%; left: 0; }
+.cityFilter-letter{ color: @blue; width: 0.6rem; display: block; text-align: center; font-size: 0.22rem; line-height: 0.32rem;}
+#cityFilter-letter-hot{ font-size: 0.14rem;}
+
+
+
+.cityFilter-bar{
+  height: 0.92rem;
+  padding: 0.13rem 0.8rem 0 0.2rem;
+  box-sizing: border-box;
+  z-index: 50;
+  background: @white;
+  position: relative;
+}
+.cityFilter-input{
+  border-radius: 3px;
+  height: 0.54rem;
+  border: 1px solid @borderColor1;
+  position: relative;
+  background-color: @white;
+  line-height: 0.54rem;
+  border-radius: 3px;
+  padding-right: 0.48rem;
+}
+.cityFilter-input .common-icon-search-little{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -7px;
+}
+.cityFilter-input .common-icon-search-txt{
+  padding-left: 0.57rem;
+  color: #c7c7cd;
+  font-size: 0.32rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cityFilter-icon-cancel{
+  position: absolute;
+  right: 0.2rem;
+  top: 0.12rem;
+  height: 0.56rem;
+  width: 0.48rem;
+}
+.cityFilter-icon-cancel .common-icon-input-cancel{
+  position: absolute;
+  right: 0.1rem;
+  top: 50%;
+  margin-top: -7px;
+}

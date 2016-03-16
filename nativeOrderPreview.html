@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>支付预览</title>
+  <link rel="import" href="htmls/commonHead.html?__inline">
+  <link rel="stylesheet" href="less/common.less" type="text/css">
+  <style>
+  body{background-color:#fff;}.common-loading{top:2rem;}
+  .main{padding:15px 12px; color:#444;}
+  h1{font-size:20px; line-height: 20px; padding-bottom: 2px; font-weight:normal;}
+  p{font-size:16px; line-height: 20px; margin:6px 0 0 0; padding: 0; color:#919294;}
+  .onlinepay{ color: #e8c062; padding-left: 3px;font-size:17px; }
+  .offlinetxt{ margin-left: 12px;}
+  .offlinepay{ color: #444; padding-left: 3px;font-size:17px; }
+  </style>
+  <script>
+  (function() {
+    window.apiRootPath = '.';
+    window.domainName = location.origin;
+  })();
+  </script>
+</head>
+<body>
+  <div class="main" id="main"></div>
+  <div class="common-loading" id="loading"></div>
+  <div class="common-toast" id="toast"><span></span></div>
+  <div class="common-msg-w" id="messageBox"></div>
+  
+  <script src="scripts/lib/lib.js"></script>
+  <script src="scripts/common/common.js"></script>
+  <script src="scripts/nativeOrderPreview.js"></script>
+</body>
+</html>

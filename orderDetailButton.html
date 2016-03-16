@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" name="viewport" />
+<style>
+html,div,body{padding:0; margin:0;}
+</style>
+  <script>
+  (function() {
+    window.apiRootPath = '.';
+    window.domainName = location.origin;
+    if (location.href.indexOf('customer') >= 0) {
+      window.domainName = domainName + '/customer';
+    }
+  })();
+  </script>
+<body>
+<div id="btn" style="margin:0; padding:0; text-align:center; line-height:43px; text-align:center; font-size:18px;">
+</div>
+<script>
+  var query = location.search.substring(1);
+  var idAndFrom = query.split('&');
+  if (idAndFrom.length > 1) {
+    // 由于航班管家 iOS 版本不支持 http 协议，所以作此判断
+    var fromOS = {};
+    for(var i = 1; i < idAndFrom.length; i ++) {
+      fromOS[idAndFrom[i].split('=')[0]] = idAndFrom[i].split('=')[1];
+    }
+    if (fromOS.from && fromOS.from.toLowerCase() == 'hbgj' && fromOS.os && fromOS.os.toLowerCase() == 'android') {
+      document.getElementById('btn').innerHTML = '<a style="color:#1997F2 !important; display:block; text-decoration:none;" href="weixinhbgj://start?type=pro&url=' + encodeURIComponent(window.domainName + '/#myOrderDetail/' + idAndFrom[0] + '?from=gtgj&entry=jdddxq') + '">处理订单</a>';
+    } else {
+      document.getElementById('btn').innerHTML = '<a style="color:#1997F2 !important; display:block; text-decoration:none;" href="' +  window.domainName + '/#myOrderDetail/' + idAndFrom[0] + '?from=gtgj&entry=jdddxq">处理订单</a>';
+    }
+  } else {
+    document.getElementById('btn').innerHTML = '<a style="color:#1997F2 !important; display:block; text-decoration:none;" href="' +  window.domainName + '/#myOrderDetail/' + idAndFrom[0] + '?from=gtgj&entry=jdddxq">处理订单</a>';
+  }
+</script>
+</body>
+</html>

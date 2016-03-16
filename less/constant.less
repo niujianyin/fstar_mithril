@@ -1,0 +1,77 @@
+// 列表页面低栏文字颜色
+@listTab:#3190e8;
+
+// 文字颜色
+@color: #333;
+@colorGray: #999;
+@colorGray1: #c7c7cd;
+@colorGray2: #666;
+@colorGray3: #888;
+@colorGray4: #a0a0a0;
+@colorOrange: #ff8208;
+@blue: #3190e8;
+@blue1: #009ff0;
+@tblue: #4889db;
+@white: #fff;
+@black: #000;
+
+
+@borderColor: #e5e5e5;
+@borderColor1: #d2d3d3;
+@borderColor2: #dadbe3;
+@borderColor3: #c7ced4;
+@bodyBackground: #eeeff2;
+@maxWidth: 500px;
+@imgBackground: #e6e6e6;
+
+
+
+
+@priceColor: #ff7e00;
+
+@darkBlue: #0077F9;
+@red: #ff3b30;
+@creditHeight: 0.88rem;
+@creditFontSize: 0.3rem;
+@creditBackground: #f8f8f8;
+@colorBlack: #252525;
+
+
+
+
+.boxflex() {
+  display: -webkit-flex;
+  display: flex;
+  display: -webkit-box;
+}
+
+.flex() {
+  -webkit-flex:1;
+  flex: 1;
+  -webkit-box-flex:1;
+}
+
+.borderBefore(){
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  content: '';
+  height: 1px;
+  -webkit-transform:scaleY(0.5);
+  background: @borderColor;
+  visibility: visible;
+  display: block;
+}
+.borderAfter(){
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  height: 1px;
+  -webkit-transform:scaleY(0.5);
+  background: @borderColor;
+  visibility: visible;
+  display: block;
+}

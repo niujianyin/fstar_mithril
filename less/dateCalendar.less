@@ -1,0 +1,106 @@
+@import url('./constant.less');
+
+.dateCalendar-w{
+  padding-top:0.2rem;
+  background-color: #fff;
+  padding-bottom: 0.6rem;
+}
+.dateCalendar-month{
+  margin-bottom:0.4rem;
+}
+
+.dateCalendar-month-header{
+  font-size:0.34rem;
+  color:#2b2b2b;
+  line-height:0.6rem;
+  text-align: center;
+}
+
+.dateCalendar-week-header{
+  font-size:0.3rem;
+  line-height:0.6rem;
+  overflow:hidden;
+}
+.dateCalendar-week-day{
+  float:left;
+  width:14%;
+  text-align:center;
+  font-size:0.26rem;
+  line-height:0.6rem;
+  color:@colorGray3;
+}
+
+.dateCalendar-noday{
+  box-sizing: border-box;
+  height: 0.92rem;
+  float:left;
+  width:14%; 
+  border-bottom:@borderColor 1px solid;
+}
+.isFirstLine{
+  border-top:@borderColor 1px solid;
+}
+.dateCalendar-first{
+  border-left:@borderColor 1px solid;
+}
+.dateCalendar-end{
+  width: 16%!important;
+}
+.dateCalendar-day{
+  float:left;
+  width:14%;
+  height: 0.92rem;
+  box-sizing: border-box;
+  border-right:@borderColor 1px solid;
+  border-bottom:@borderColor 1px solid;
+}
+.dateCalendar-day .date{
+  display:inline-block;
+  width:0.6rem;
+  height:0.52rem;
+  line-height: 0.36rem;
+  margin-left: 5px;
+  position: relative;
+  z-index: 2;
+}
+.dateCalendar-day.disabled{
+  color:@colorGray3;
+  background-color: @bodyBackground;
+}
+.dateCalendar-day.today{
+  
+}
+.dateCalendar-day.first-selected, .dateCalendar-day.last-selected{
+  position:relative;
+}
+.dateCalendar-day.first-selected,
+.dateCalendar-day.last-selected,
+.dateCalendar-day.only-selected,
+.dateCalendar-day.selected{
+  background-color: @tblue;
+}
+.dateCalendar-day .special{
+  color: @tblue;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  text-align: center;
+}
+.dateCalendar-day.first-selected .date,
+.dateCalendar-day.last-selected .date,
+.dateCalendar-day.only-selected .date,
+.dateCalendar-day.selected{
+  color: #fff;
+}
+
+.dateCalendar-day.first-selected .special,
+.dateCalendar-day.last-selected .special,
+.dateCalendar-day.only-selected .special,
+.dateCalendar-day.selected .special{
+  color: #fff;
+}
+
+.disabled .special{
+  color: @colorGray3;
+}
+
+

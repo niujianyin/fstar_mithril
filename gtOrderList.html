@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>我的酒店订单</title>
+  <link rel="import" href="htmls/commonHead.html?__inline">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="less/common.less" type="text/css">
+  <link rel="stylesheet" href="less/gtOrderList.less" type="text/css">
+</head>
+<body>
+  <div class="main" id="main"></div>
+  <div class="common-loading" id="loading" style="display: block;"></div>
+  
+  <div class="common-toast" id="toast"><span></span></div>
+  <div class="common-msg-w" id="messageBox"></div>
+  <!-- js要缓存 -->
+  <script type="text/javascript">
+    window.domainName = location.origin;
+    window.apiRootPath = domainName;
+  </script>
+  <script src="scripts/lib/lib.js"></script>
+  <script src="scripts/common/common.js"></script>
+  <script src="scripts/gtOrderList.js"></script>
+</body>
+</html>

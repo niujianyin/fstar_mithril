@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>step</title>
+</head>
+<body>
+  <!-- fis 命令 -->
+  <!-- 启动本地服务 -->
+  <!-- sudo fis server start  -->
+  <!-- 清除本地服务器内容 -->
+  <!-- sudo fis server clean  -->
+  <!-- 编译本地文件 -->
+  <!-- sudo fis release -wp -->
+  <!-- sudo fis release -wpL -->
+
+  <!-- fis3 命令 -->
+  <!-- 启动本地服务 -->
+  sudo fis3 server start 
+  <!-- 清除本地服务器内容 -->
+  sudo fis3 server clean 
+  <!-- 编译本地文件 -->
+  sudo fis3 release -w
+  <!-- sudo fis3 release -wL -->
+  <!-- sudo fis3 release prod -d ../ -->
+
+
+  <!-- https://43.241.208.207:9000/hotel1/ -->
+  cd ~/Documents/workspace/fstarVue/webapp/src
+  ./pb.sh
+  <!-- ./new_debug.sh -->
+  <!-- 测试服务器地址 -->
+  <!-- http://43.241.208.207:9000/hotel1/
+  http://hotel.rsscc.cn/hotel1/ -->
+  
+  
+  <!-- 测试环境：搜索接口：http://103.37.151.253:9000/hotel/s -->
+  http://103.37.151.253:9000/index.html
+  ./debug_new.sh
+
+  <!-- https://43.241.208.207:9443/hotel1/ -->
+
+  cd /Applications/
+  open Google\ Chrome.app/ --args --disable-web-security
+  
+  sudo nginx
+  sudo nginx -s reload
+  sudo nginx -s stop
+
+  cd /usr/local/etc/nginx
+  nginx.conf
+  http://localhost/index.html
+  <!-- /usr/local/etc/nginx/nginx.conf  -->
+
+  <!-- dev0 测试服务器 -->
+  <!-- sudo fis release -mp -d /Users/njy/Documents/publish/fe/5star_customer -->
+  cd /Users/njy/Documents/publish/  
+  <!-- 连接服务器 -->
+  sudo ssh -i cn-dev.pem ec2-user@dev0.xiayizhan.mobi
+  <!-- 上传文件 -->
+  cd /Users/njy/Documents/workspace/fstarVue/webapp/src/
+  <!-- ./fe.sh -->
+  ./debug.sh
+  <!-- 推送到tomcat上 -->
+  sudo cp -Rf /home/ec2-user/fivestar_fte_src/* /usr/local/tomcat7/webapps/customer
+
+
+
+  <!-- hotel-test.rsscc.com 测试服务器 -->
+  <!-- 连接服务器 -->
+  ssh root@43.241.208.237
+  <!-- 上传文件 -->
+  cd /Users/njy/Documents/workspace/fstarVue/webapp/src/
+  <!-- ./fe.sh -->
+  ./debug2.sh
+  <!-- 推送到tomcat上 -->
+  sudo cp -Rf /root/fivestar_fte_src/* /usr/local/tomcat7/webapps/customer
+
+  <!-- 测试服务器地址 -->
+  http://hotel-test.rsscc.com/
+
+
+  
+</body>
+</html>

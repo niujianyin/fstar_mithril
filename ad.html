@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html style="height:100%; padding:0; margin:0;">
+<head>
+  <title>伙力特惠五星</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" name="viewport" />
+  <meta name="format-detection" content="telephone=no">
+</head>
+<body style="height:100%; padding:0; margin:0">
+  <a id="ad1" href="javascript:;" style="position:absolute; top:0; right:0; bottom:0; left:0;"><img style="display:block; height:100%; width:100%;" src="./images/banner.jpg" /></a>
+  <script type="text/javascript">
+    function GetQueryString(name)
+    {
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return r[2]; return null;
+    }
+    var city = decodeURIComponent(GetQueryString('city'));
+
+    // var url = 'https://hotel.rsscc.cn/index.html#?from=' + GetQueryString("from") + '&name=' + city;
+    var url = 'https://hotel.rsscc.cn/index.html#?from=' + GetQueryString("from");
+    document.getElementById('ad1').href = url;
+  </script>
+  <!-- http://dev0.xiayizhan.mobi/ad1.html?from=gtgj&city=%E5%8C%97%E4%BA%AC -->
+</body>
+</html>

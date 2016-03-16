@@ -1,0 +1,118 @@
+@import url('./constant.less');
+
+.dateSelector-w{
+  padding-top:0.2rem;
+  background-color: #fff;
+  padding-bottom: 0.6rem;
+}
+.dateSelector-month{
+  margin-bottom:0.2rem;
+}
+
+.dateSelector-month-header{
+  font-size:0.36rem;
+  color:@black;
+  line-height:0.7rem;
+  text-align: center;
+}
+
+.dateSelector-week-header{
+  font-size:0.36rem;
+  line-height:0.5rem;
+  overflow:hidden;
+  color: @colorGray2;
+}
+.dateSelector-week-day{
+  float:left;
+  width:14%;
+  text-align:center;
+  font-size:0.26rem;
+  line-height:0.6rem;
+  color:@colorGray;
+}
+
+.dateSelector-noday{
+  box-sizing: border-box;
+  height: 0.92rem;
+  float:left;
+  width:14%; 
+  // border-bottom:@borderColor 1px solid;
+}
+.isFirstLine{
+  // border-top:@borderColor 1px solid;
+}
+.dateSelector-first{
+  // border-left:@borderColor 1px solid;
+}
+.dateSelector-end{
+  width: 16%!important;
+}
+.dateSelector-day{
+  float:left;
+  font-size: 0.24rem;
+  width:14%;
+  height: 0.92rem;
+  box-sizing: border-box;
+  // border-right:@borderColor 1px solid;
+  // border-bottom:@borderColor 1px solid;
+  color:@black;
+  position: relative;
+}
+.dateSelector-day .date{
+  // display:inline-block;
+  // width:0.6rem;
+  // height:0.52rem;
+  // line-height: 0.36rem;
+  // margin-left: 5px;
+  // position: relative;
+  // z-index: 2;
+  display: block;
+  height: 0.92rem;
+  line-height: 0.92rem;
+  text-align: center;
+}
+.dateSelector-day.disabled{
+  color:@colorGray;
+  background-color: #f5f5f9;
+}
+.dateSelector-day.today{
+  
+}
+.dateSelector-day.first-selected, .dateSelector-day.last-selected{
+  position:relative;
+}
+.dateSelector-day.first-selected .date, .dateSelector-day.last-selected .date,.dateSelector-day.only-selected .date{
+  line-height: 0.7rem;
+}
+.dateSelector-day.first-selected,
+.dateSelector-day.last-selected,
+.dateSelector-day.only-selected,
+.dateSelector-day.selected{
+  background-color: @blue;
+}
+.dateSelector-day .special{
+  color: @blue;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  font-size: 0.2rem;
+  text-align: center;
+  margin-top: -0.5rem;
+}
+.dateSelector-day.first-selected .date,
+.dateSelector-day.last-selected .date,
+.dateSelector-day.only-selected .date,
+.dateSelector-day.selected{
+  color: #fff;
+}
+
+.dateSelector-day.first-selected .special,
+.dateSelector-day.last-selected .special,
+.dateSelector-day.only-selected .special,
+.dateSelector-day.selected .special{
+  color: #fff;
+}
+
+.disabled .special{
+  color: @colorGray;
+}
+

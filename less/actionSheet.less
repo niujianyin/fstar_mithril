@@ -1,0 +1,127 @@
+@import url('./constant.less');
+
+.common-as{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: none;
+  z-index: 200;
+}
+
+.common-as.show{
+  display: block;
+}
+
+.common-as-bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.common-as-c{
+  position: absolute;
+  bottom: -0.2rem;
+  padding-bottom: 0.2rem;
+  left: 0rem;
+  right: 0rem;
+  background-color: @white;
+  overflow: hidden;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  z-index: 101;
+}
+.common-as-items{ overflow: hidden; padding: 0.2rem 0.38rem 0;}
+
+.common-as-title{ height: 0.4rem; line-height: 0.4rem; font-size: 0.3rem; padding-bottom: 0.2rem;}
+.common-as-titleInit{}
+.common-as-box{
+  min-height: 0.6rem;
+}
+.common-as-box div:nth-of-type(3n+2){
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.common-as-sbox{
+  height: 0.6rem;
+  line-height: 0.6rem;
+  overflow: hidden;
+  border: 1px solid @borderColor1;
+  border-radius: 2px;
+  margin-bottom: 0.2rem;
+  font-size: 0.26rem;
+  width: 31%;
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#common-as-btn{
+  margin-top: 0.2rem;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  text-align: center;
+  background-color: @blue;
+  color: #fff;
+  font-size: 0.36rem;
+}
+.common-as-sbox.selected{ 
+  background: url(../images/icon_btnSelected@2x.png) no-repeat right bottom; 
+  background-size: 10px 8px;
+  color: @blue; 
+  border: 1px solid @blue;
+}
+
+
+
+
+
+
+/*listApp  里距离筛选*/ 
+#actionSheetCancel{
+  position: absolute;
+  bottom: 0.2rem;
+  left: 0.2rem;
+  right: 0.2rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  color: @blue;
+  font-size: 0.36rem;
+  border-radius: 0.16rem;
+  background: #fff;
+  overflow: hidden;
+}
+
+.common-as-item{
+  background: #fff;
+  line-height: 1rem;
+  font-size: 0.36rem;
+  text-align: center;
+}
+
+.common-as-item:last-child .common-border{
+  display: none;
+}
+
+.common-as-item.selected{
+  color: @blue;
+  background-color: #f7f7f7;
+  position: relative;
+}
+
+.common-as-item .common-border{
+  pointer-events: none;
+}
+
+.common-as-item-gray{ color: @colorGray;}
+
+
+
+
+

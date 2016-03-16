@@ -1,0 +1,462 @@
+@import url('./constant.less');
+
+.detailProduct-w{
+  position: relative;
+}
+.detailProduct-filter{
+  height: 1.1rem;
+  box-sizing: border-box;
+  // position: relative;
+  background-color: @white;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  max-width: 500px;
+  width: 100%;
+}
+.detailProduct-filter-placeholder{
+  height: 1.1rem;
+}
+.detailProduct-filter:after{
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 98%, rgba(0, 0, 0, 0) 100%);
+  height: 8px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  content: '';
+}
+.detailProduct-filter-date{
+  height: 1.1rem;
+  width: 2.74rem;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0rem;
+  top: 0rem;
+  font-size: 0.3rem;
+  line-height: 0.36rem;
+  color: @color;
+  padding: 0.18rem 0 0 0.2rem;
+  z-index: 100;
+}
+.detailProduct-filter-date:after{
+  width: 1px;
+  background: @borderColor2;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.detailProduct-filter-time{
+
+}
+.detailProduct-filter-date-count{
+  position: absolute;
+  top: 0;
+  right: 0.44rem;
+  line-height: 1.1rem;
+  overflow: hidden;
+  color: @blue;
+  font-size: 0.26rem;
+}
+.detailProduct-filter-date .common-icon-date-arrow {
+  position: absolute;
+  right: 0.18rem;
+  top: 50%;
+  margin-top: -2px;
+}
+.detailProduct-filter-btns{
+  padding-left: 2.74rem;
+  padding-top: 0.26rem;
+  padding-right: 0.2rem;
+  // .boxflex();
+}
+.detailProduct-filter-btn{
+  // .flex();
+  width: 50%;
+  margin-left: 0.32rem;
+  height: 0.54rem;
+  line-height: 0.54rem;
+  border: 1px solid @borderColor1;
+  background-color: @white; 
+  border-radius: 2px;
+  font-size: 0.26rem;
+  text-align: center;
+}
+.detailProduct-filter-btn.selected{
+  background: url(/images/icon_btnSelected@2x.png) no-repeat right bottom @white;
+  background-size: 10px 8px;
+  color: @blue;
+  border: 1px solid @blue;
+}
+
+.detailProduct-li{
+  position: relative;
+  margin-top: 0.2rem;
+}
+.detailProduct-li:after{
+  
+}
+.detailProduct-li-head{
+  .boxflex();
+  height: 1.2rem;
+  overflow: hidden;
+  position: relative;
+  background: @white;
+  padding-left: 0.2rem;
+}
+.detailProduct-li-head:before{
+  height: 1px;
+  background: @borderColor3;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.detailProduct-li-head:after{
+  height: 1px;
+  background: @borderColor3;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.detailProduct-list .detailProduct-li:first-child{ margin-top: 0;}
+.detailProduct-list .detailProduct-li:first-child .detailProduct-li-head:before{ 
+  display: none;
+}
+
+.detailProduct-li-sub{
+  .flex();
+  height: 1.2rem;
+  box-sizing: border-box;
+  padding: 0.2rem 0 0.2rem;
+}
+.detailProduct-li-room-type{
+  font-size: 0.36rem;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: @black;
+}
+.detailProduct-li-room-info{
+  font-size: 0.26rem;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: @colorGray;
+}
+
+.detailProduct-li-main{
+  padding: 0.35rem 0.48rem 0 0.2rem;
+  line-height: 0.4rem;
+  color: @colorGray;
+  font-size: 0.24rem;
+}
+.detailProduct-li-subprice{
+  font-size: 0.36rem;
+  color: @colorOrange;
+}
+.detailProduct-li-price{
+  font-size: 0.48rem;
+  color: @colorOrange;
+}
+
+.detailProduct-li-no .detailProduct-li-subprice{
+  color: @colorGray;
+}
+.detailProduct-li-no .detailProduct-li-price{
+  color: @colorGray;
+}
+.detailProduct-li .common-icon-more-right1{
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -3px;
+}
+.detailProduct-li .common-icon-more-right-open {
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -3px;
+}
+.detailProduct-li-content{
+  background:@bodyBackground;
+}
+.detailProduct-li-content li{
+  height: 1.65rem;
+  padding: 0.15rem 0.2rem;
+  position: relative;
+  .boxflex();
+  box-sizing: border-box;
+}
+.detailProduct-li-content li:before{
+  height: 1px;
+  background: @borderColor3;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  top: 0;
+}
+.detailProduct-li-content li:nth-of-type(1):before{
+  display: none;
+}
+.detailProduct-room-left{
+  .flex();
+  height: 1.15rem;
+  box-sizing: border-box;
+  padding-left: 0.2rem;
+}
+.detailProduct-room-left-top{
+  font-size: 0.36rem;
+  line-height: 0.5rem;
+  height: 0.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+}
+.detailProduct-room-left-center{
+  font-size: 0.26rem;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: @colorGray3;
+}
+.detailProduct-room-left-paytype{
+  color: @colorOrange;
+}
+.detailProduct-room-left-txt1{
+  font-size: 0.26rem;
+}
+.detailProduct-room-left-bottom{
+  padding-top: 0.1rem;
+  height: 0.35rem;
+  position: relative;
+}
+.detailProduct-hotel-tags{
+  height: 0.24rem;
+  display: inline-block;
+}
+.detailProduct-hotel-tags span{
+  font-size: 0.18rem;
+  color: @blue1;
+  border:1px solid @blue1;
+  height: 0.22rem;
+  line-height: 0.22rem;
+  margin-right: 0.1rem;
+  float: left;
+  padding: 0 1px;
+  background-color: @white;
+}
+.detailProduct-room-left1{
+  padding: 0.22rem 0;
+}
+.detailProduct-room-left1 .detailProduct-room-left-bottom{
+  display: none;
+}
+
+
+.detailProduct-room-center{
+  display: block;
+  position: relative;
+  height: 1.35rem;
+  box-sizing: border-box;
+}
+
+.detailProduct-room-average{
+  position: absolute;
+  left: 0rem;
+  top: 50%;
+  margin-top: -0.1rem;
+  display: block;
+  background-color: #aaa;
+  height: 0.24rem;
+  width: 0.24rem;
+  line-height: 0.24rem;
+  text-align: center;
+  font-size: 0.2rem;
+  overflow: hidden;
+  color: @white;
+  margin-right: 0.06rem;
+}
+.detailProduct-room-price{
+  color: @colorOrange;
+  font-size: 0.4rem;
+  line-height: 1.35rem;
+  height: 1.35rem;
+  position: relative;
+  padding-left: 0.3rem;
+}
+
+.detailProduct-room-price i{
+  font-size: 0.3rem;
+  font-style: normal
+}
+.detailProduct-room-right{
+  position: relative;
+  height: 1.35rem;
+  box-sizing: border-box;
+  padding: 0.2rem 0 0 0.2rem;
+}
+
+.detailProduct-order-btn{
+  border-radius: 3px;
+  box-sizing: border-box;
+  background: @blue;
+  overflow: hidden;
+  // border: 1px solid @blue;
+  width: 1.06rem;
+  height: 0.92rem;
+  line-height: 0.92rem;
+  text-align: center;
+  font-size: 0.32rem;
+  color: @white;
+}
+// .detailProduct-order-btn-t{
+//   line-height: 0.48rem;
+//   height: 0.48rem;
+//   color: #fff;
+//   text-align: center;
+//   font-size: 0.32rem;
+// }
+// .detailProduct-order-btn-m{
+//   line-height: 0.3rem;
+//   height: 0.3rem;
+//   background: @white;
+//   color: @blue;
+//   text-align: center;
+//   font-size: 0.2rem
+// }
+// .detailProduct-bg-blue{
+//   background-color: #dff0ff
+// }
+
+.detailProduct-li-content-no .detailProduct-order-btn {
+    // border: 1px solid #aaa
+    background: #999;
+}
+
+// .detailProduct-li-content-no .detailProduct-order-btn-t {
+//     background: #aaa
+// }
+
+// .detailProduct-li-content-no .detailProduct-order-btn-m {
+//     color: #aaa;
+//     background: #fff
+// }
+
+.detailProduct-li-content-no .detailProduct-room-price{
+  color: @colorGray3;
+}
+.detailProduct-li-content-no .detailProduct-room-left-top{
+  color: @colorGray3;
+}
+.detailProduct-li-content-no .detailProduct-room-price i{
+  color: @colorGray3;
+}
+.detailProduct-li-content-no .detailProduct-room-left-paytype{
+  color: @colorGray3;
+}
+.detailProduct-li-content-no .detailProduct-hotel-tags span{
+  border:1px solid @colorGray3;
+  color: @colorGray3;
+  background: none;
+}
+.detailProduct-room-more-product{
+  line-height: 0.86rem;
+  height: 0.86rem;
+  text-align: center;
+  font-size: 0.32rem;
+  color: @blue;
+  position: relative;
+}
+.detailProduct-room-more-arrow{
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  margin-left: 0.1rem;
+}
+.detailProduct-room-more-product:before{
+  height: 1px;
+  background: @borderColor3;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  top: 0;
+}
+.detailProduct-room-more-product:after{
+  height: 1px;
+  background: @borderColor3;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.detailProduct-room-left-txt{ padding-right: 2px;}
+.detailProduct-room-advance{
+  background-color: #aaa;
+  height: 0.24rem;
+  line-height: 0.24rem;
+  font-size: 0.2rem;
+  color: @white;
+  position: absolute;
+  top: 50%;
+  margin-top: -0.12rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+

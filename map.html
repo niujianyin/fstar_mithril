@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<title></title>
+<style type="text/css">
+  body, html{width: 100%;height: 100%;overflow: hidden;margin:0;}
+</style>
+</head>
+<body>
+  <lbs-map id="lbs-map" width="100%" style="height:100%" center="">
+    <lbs-poi id="lbs-poi" name="" location="" addr="" ></lbs-poi>
+  </lbs-map>
+</body>
+
+<script type="text/javascript">
+  var map = {
+    getQueryString: function(name) {
+      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if(r!=null) return decodeURIComponent(r[2]); return null;
+    }, 
+    init: function(){
+      var self = this;
+      document.title = self.getQueryString('name');
+      var ele = document.getElementById('lbs-map');
+      var poiLocation = self.getQueryString('lon')+","+self.getQueryString('lat');
+      ele.setAttribute("center",poiLocation);
+      ele = document.getElementById("lbs-poi");
+      ele.setAttribute("name",self.getQueryString('name'));
+      ele.setAttribute("location",poiLocation);
+      ele.setAttribute("addr",self.getQueryString('desc'));
+    }
+  }
+  map.init();
+</script>
+<script src="https://sapi.map.baidu.com/components?ak=ilzHNEmlYFfKe4o4HwuPG37c&v=1.0"></script>
+<!-- jtYb0coY3RSubYpk5xxGop3S -->
+</html>

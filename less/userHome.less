@@ -1,0 +1,118 @@
+@import url('./constant.less');
+
+.user-info{
+  background: url(../images/userHome.png) no-repeat left bottom #fff;
+  background-size: 100% auto;
+  padding:0.6rem 0;
+  position:relative;
+}
+.user-info .common-icon-more-right{
+  position:absolute;
+  top:50%;
+  margin-top:-6px;
+  right:0.2rem;
+}
+.user-photo{
+  width:1.28rem;
+  height:1.28rem;
+  margin:0 auto;
+  background:url(../images/icon_discount_avatar@2x.png) no-repeat;
+  background-size:1.28rem 1.28rem;
+}
+.user-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+}
+
+.user-number{
+  text-align:center;
+  margin-top:0.2rem;
+  font-size:0.34rem;
+  color:#252525;
+}
+
+.user-focus{
+  background-color:#fff;
+  position: relative;
+}
+.user-focus:before{
+  width: 1px;
+  background: @borderColor;
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  -webkit-transform:scaleX(0.5);
+  content:"";
+}
+.user-money, .user-order{
+  width:50%;
+  float:left;
+  text-align:center;
+  padding:0.4rem 0;
+}
+
+.user-money-w{
+  line-height:0.72rem;
+  height:0.72rem;
+  display:block;
+}
+.user-money-u{
+  font-size:0.72rem;
+  color:#FCF6DB;
+}
+.user-money-c{
+  font-size:0.56rem;
+  color: @blue;
+  font-weight: lighter;
+}
+.user-money-c i{
+  font-size:0.26rem;
+  font-style: normal;
+}
+.user-money-t, .user-order-t{
+  font-size:0.22rem;
+  line-height:0.3rem;
+  color:#888;
+}
+.user-order-c{
+  position:relative;
+  display:inline-block;
+}
+.user-icon-order{
+  width:0.72rem;
+  height:0.72rem;
+  display:block;
+  background:url(../images/orderIcon.png) no-repeat 0.18rem 0.14rem;
+  background-size:0.34rem 0.44rem;
+}
+.user-order-barget{
+  width:0.44rem;
+  height:0.44rem;
+  position:absolute;
+  border-radius:0.22rem;
+  font-size:0.32rem;
+  color:#fff;
+  line-height:0.44rem;
+  background-color:#f00;
+  top:-0.22rem;
+  right:-0.22rem;
+}
+
+.user-w .common-table{
+  margin-top:0.4rem;
+}
+.user-w .common-table .common-icon-more-right{
+  margin-top:0.32rem;
+  float:right;
+}
+.user-logout-button{
+  margin:0.6rem 0.88rem;
+  line-height:0.72rem;
+  background: @blue;
+  border-radius:3px;
+  text-align:center;
+  font-size:0.34rem;
+  color:#FFF;
+}

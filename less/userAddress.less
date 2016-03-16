@@ -1,0 +1,107 @@
+@import url('./constant.less');
+
+.userAddress-w{
+  color: #252525;
+  font-size:0.3rem;
+}
+
+.userAddress-w .common-header .tit{
+  margin:0 1rem;
+}
+
+.userAddress-list{
+  /*margin:5rem 10px 0;*/
+  margin:0 10px;
+  line-height:0.88rem;
+}
+
+.userAddress-list li{
+  position:relative;
+  padding:0.1rem 0.2rem 0.1rem 0;
+}
+.userAddress-list li:after{
+  height: 1px;
+  background: @borderColor;
+  -webkit-transform:scaleY(0.5);
+  content:"";
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.userAddress-name{
+  font-size:0.3rem;
+  line-height:0.6rem;
+}
+.userAddress-name span{
+  margin-left:0.2rem;
+}
+.userAddress-address{
+  font-size:0.22rem;
+  line-height:0.4rem;
+  color:#252525;
+}
+
+.userAddress-add{
+  margin:0 10px;
+  line-height:0.88rem;
+  border-bottom:1px solid #5B6E80;
+  color:#515E6A;
+}
+
+
+
+.userAddress-ok{
+  color:#eee;
+  font-size:0.3rem;
+  margin-right:0.2rem;
+}
+
+
+.userAddress-form{
+  margin:0 10px;
+
+}
+
+.userAddress-form-i{
+  line-height:0.88rem;
+}
+
+.userAddress-form-label{
+  width:1.6rem;
+  float:left;
+}
+.userAddress-form-input{
+  margin-left:1.7rem;
+}
+.userAddress-form-input input,
+.userAddress-form-input textarea{
+  background:transparent;
+  width:100%;
+  line-height:0.4rem;
+  padding:0;
+  margin:0;
+  border:none;
+  font-size:0.3rem!important;
+  color: #252525;
+  outline:none;
+}
+.userAddress-form-input textarea{
+  margin-top:0.24rem;
+  resize:none;
+  min-height:1.2rem;
+}
+
+.userAddress-list li.userAddress-item{ padding-left: 36px; padding-right: 0px; position: relative; }
+.userAddress-radio-circle-big{position: absolute; left: 10px; top: 50%; width: 16px; height: 16px; background-color: #fff; border: 1px solid #4889DB; border-radius: 100%; margin-top: -8px;}
+.userAddress-radio-circle-small{ display: none;}
+.userAddress-radio-select .userAddress-radio-circle-small{ display: block; position: absolute; left: 15px; top: 50%; width: 8px; height: 8px; background-color: #4488CC; border-radius: 100%; margin-top: -3px;}
+
+.userAddress-arrow-right{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -6px;
+}

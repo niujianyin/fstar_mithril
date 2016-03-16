@@ -1,0 +1,367 @@
+@import url('./constant.less');
+@import url('./swiper.less');
+
+.detailApp-image-view{
+  position: relative;
+  overflow: hidden;
+}
+
+.detailApp-hotel-img.common-img{
+  // position: absolute;
+  // left: 50%;
+  // top: 50%;
+}
+
+.detailApp-hotel-info{
+  padding: 0.26rem 0.2rem;
+  background: #fff;
+  position: relative;
+}
+
+.detailApp-hotel-info-label{
+  position: absolute;
+  right: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
+  top: 50%;
+  margin-top: -0.2rem;
+  color: @blue;
+}
+
+.detailApp-hotel-name{
+  padding: 0.2rem 0.2rem 0;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.36rem;
+  color: @white;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.4) 98%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.detailApp-hotel-loc{
+  padding: 0.1rem 0.2rem;
+  background: #fff;
+  position: relative;
+  min-height: 0.6rem;
+}
+
+.detailApp-hotel-detail{
+  padding: 0.2rem 0.2rem 0.1rem 0.2rem;
+  background: #fff;
+  position: relative;
+  min-height: 0.6rem;
+}
+.detailApp-hotel-detail-icon{
+  width: 90px;
+  height: 14px;
+  background: url(../images/icon_detail@2x.png) no-repeat;
+  background-size: 90px 14px;
+}
+.detailApp-hotel-loc-label{
+  position: absolute;
+  right: 0.4rem;
+  font-size: 0.28rem;
+  color: @blue;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  top: 50%;
+  margin-top: -0.2rem;
+}
+.detailApp-hotel-loc-label1{
+  position: absolute;
+  right: 0.4rem;
+  font-size: 0.28rem;
+  color: @colorGray;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  top: 50%;
+  margin-top: -0.2rem;
+}
+
+.detailApp-hotel-address,
+.detailApp-hotel-detail-t{
+  font-size: 0.32rem;
+  line-height: 0.4rem;
+  margin-right: 0.8rem;
+}
+
+.detailApp-hotel-circle{
+  color: @colorGray;
+  font-size: 0.26rem;
+  margin-right: 0.8rem;
+  line-height: 0.4rem;
+}
+
+.detailApp-hotel-info .common-icon-more-right,
+.detailApp-hotel-loc .common-icon-more-right,
+.detailApp-hotel-detail .common-icon-more-right,
+.detailApp-hotel-comment .common-icon-more-right{
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -5px;
+}
+
+.detailApp-hotel-info .common-border,
+.detailApp-hotel-loc .common-border,
+.detailApp-hotel-detail .common-border{
+  position: absolute;
+  bottom: 0;
+  left: 0.2rem;
+  right: 0;
+}
+.detailApp-hotel-comment .common-border{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.detailApp-check-date{
+  margin-top: 0.3rem;
+  position: relative;
+  padding: 0.26rem 0.2rem;
+  background: #fff;
+}
+
+.detailApp-check-date-c{
+  font-size: 0.3rem;
+  line-height: 0.4rem;
+  color: @colorGray2;
+}
+
+.detailApp-check-date-c span{
+  color: #333;
+  font-size: 0.32rem;
+}
+.detailApp-check-date-c i{
+  color: @colorGray;
+  font-size: 0.24rem;
+  font-style: normal;
+}
+.detailApp-check-date-c  .detailApp-check-week{
+  font-size: 0.28rem;
+}
+
+
+.detailApp-check-date-t{
+  position: absolute;
+  font-size: 0.28rem;
+  color: @blue;
+  line-height: 0.4rem;
+  right: 0.4rem;
+  top: 50%;
+  margin-top: -0.2rem;
+}
+
+.detailApp-check-date .common-border{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+}
+
+.detailApp-check-date .common-border.border-top{
+  top: 0;
+  bottom: auto;
+}
+
+.detailApp-check-date .common-icon-more-right{
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -5px;
+}
+
+
+
+/* soldout */
+.detailApp-souldout{
+  margin:10px 0;
+  text-align: center;
+  color:#888;
+  font-size:0.28rem;
+  background:#fff;
+}
+.detailApp-souldout .common-border:first-child{
+  margin-bottom: 0.4rem;
+}
+.detailApp-souldout .common-border:last-child{
+  margin-top: 0.4rem;
+}
+
+.detailApp-souldout .detailApp-souldout-a{
+  display:block;
+  line-height:0.72rem;
+  font-size:0.3rem;
+  color:#fff;
+  background:#4889DB;
+  border-radius:3px;
+  width:4rem;
+  margin:0.2rem auto 0;
+}
+/* soldout end */
+
+.detailApp-hotel-circle .common-icon-tag {
+  display: inline-block;
+  padding: 0 4px 0 0;
+  vertical-align: middle;
+  height: 0.26rem;
+  margin-top: -1px;
+}
+
+
+
+.detailApp-hotel-comment{
+  padding: 0.2rem;
+  background: #fff;
+  position: relative;
+  min-height: 0.6rem;
+  overflow: hidden;
+}
+.detailApp-hotel-comment-label{
+  position: absolute;
+  right: 0.4rem;
+  font-size: 0.28rem;
+  color: @blue;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  top: 50%;
+  margin-top: -0.2rem;
+}
+.detailApp-hotel-comment-score{
+  font-size: 0.32rem;
+  line-height: 0.6rem;
+  min-height: 0.6rem;
+  margin-right: 0.8rem;
+  color: @blue;
+  float: left;
+}
+
+.detailApp-supplier{
+  
+}
+.detailApp-supplier-item{
+  .boxflex();
+  height: 1.3rem;
+  overflow: hidden;
+  position: relative;
+  background: @white;
+  padding-left: 0.2rem;
+}
+.detailApp-supplier-item:after{
+  height: 1px;
+  background: @borderColor;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  clear: both;
+  content: '';
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0.2rem;
+  right: 0;
+  bottom: 0;
+}
+.detailApp-supplier-label{
+  .flex();
+  line-height: 1.3rem;
+  font-size: 0.36rem;
+}
+.detailApp-supplier-main{
+  padding: 0.45rem 0.48rem 0 0.2rem;
+  line-height: 0.4rem;
+  color: @colorGray;
+  font-size: 0.24rem;
+  position: relative;
+  height: 1.3rem;
+  box-sizing: border-box;
+}
+.detailApp-supplier-loading{
+  width: 20px;
+  height: 20px;
+  background: url(../images/loading.gif) no-repeat;
+  background-size: 20px 20px;
+  position: absolute;
+  margin: -10px 0 0 -10px;
+  left: 0;
+  top: 50%;
+}
+.detailApp-supplier-item .common-icon-more-right{
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  margin-top: -5px;
+}
+.detailApp-supplier-subprice{
+  font-size: 0.24rem;
+  color: @colorOrange;
+}
+.detailApp-supplier-price{
+  font-size: 0.42rem;
+  color: @colorOrange;
+}
+.detailApp-supplier-item-no .detailApp-supplier-subprice{
+  color: @colorGray;
+}
+.detailApp-supplier-item-no .detailApp-supplier-price{
+  color: @colorGray;
+}
+.detailApp-supplier-full-room{
+  position: absolute;
+  right: 0;
+  top: -1px;
+}
+.detailApp-hotel-t-only{
+  line-height: 0.6rem;
+}
+.detailApp-hotel-pos{
+  line-height: 0.32rem;
+  height: 0.32rem;
+  overflow: hidden;
+}
+.detailApp-hotel-wifi .common-icon-wifi {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+.detailApp-hotel-parking .common-icon-parking {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 100;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.detailApp-hotel-comment .detailApp-hotel-detail-tt{
+  float: left;
+  line-height: 0.6rem;
+  margin-right: 0.2rem;
+}
+

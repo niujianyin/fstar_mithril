@@ -1,0 +1,59 @@
+@import url('./constant.less');
+
+.modifyOrderApp-w{
+  color: #252525;
+  font-size:0.32rem;
+}
+.modifyOrderApp-form{ padding-right: 0px!important; background-color:#fff; margin:0; padding: 0 10px; }
+.modifyOrderApp-form:after{ visibility: hidden!important;}
+.modifyOrderApp-label{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  margin-top: -0.44rem;
+  width: 1.4rem;
+}
+.modifyOrderApp-names{
+  margin-left: 1.4rem;
+  overflow: hidden;
+  display: block;
+  min-height: 0.86rem;
+  position: relative;
+}
+
+.modifyOrderApp-item{
+  position:relative;
+  line-height:0.88rem;
+  padding-right: 40px;
+}
+.modifyOrderApp-item:before{
+  content:'';
+  display:block;
+  height: 1px;
+  -webkit-transform:scaleY(0.5);
+  background:@borderColor;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+}
+
+.modifyOrderApp-noBorder:before{
+  visibility: hidden!important;
+}
+
+.modifyOrderApp-ul{ overflow: hidden; margin: 8px 10px;}
+.modifyOrderApp-li{ line-height: 2rem; position: relative; color: #888; font-size: 1.3rem; padding-left: 10px;}
+.modifyOrderApp-li:before{
+  content:'';
+  background: #888;
+  position: absolute;
+  top: 0.2rem;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 100%;
+  margin-top: -3px;
+}

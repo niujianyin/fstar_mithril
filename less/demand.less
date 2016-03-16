@@ -1,0 +1,36 @@
+@import url('./constant.less');
+.demandApp-w{
+  color: #252525;
+  font-size:0.32rem;
+}
+.demandApp-head{ background-color: #fff; padding: 0.2rem 0 0; margin-bottom: 0.2rem;}
+.demandApp-head-title{ line-height: 0.54rem; padding: 0 10px 0 0.2rem;}
+.demandApp-head-explain{ line-height: 0.48rem; font-size: 0.28rem; color: #888; padding: 0 10px 0.16rem 0.2rem;}
+
+.demandApp-box{ overflow: hidden; background-color: #fff;}
+.demandApp-list{}
+.demandApp-item{
+  position:relative;
+  padding: 0.2rem 30px 0.2rem 10px;
+  box-sizing: border-box;
+  line-height:0.48rem;
+  overflow: hidden;
+}
+
+.demandApp-list li:after{
+  height: 1px;
+  background: @borderColor;
+  -webkit-transform:scaleY(0.5);
+  content:"";
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.demandApp-radio-circle-big{ position: absolute; right: 10px; top: 50%; width: 16px; height: 16px; background-color: #fff; border: 1px solid #4889DB; border-radius: 100%; margin-top: -8px;}
+.demandApp-radio-circle-small{ display: none;}
+.demandApp-select .demandApp-radio-circle-small{ display: block; position: absolute; right: 15px; top: 50%; width: 8px; height: 8px; background-color: #4488CC; border-radius: 100%; margin-top: -3px;}
+
+.demandApp-mt100{ margin-top: 10rem!important;}
