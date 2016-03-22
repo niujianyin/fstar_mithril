@@ -72,6 +72,7 @@ util.PAYMENT_METHOD = ['未知', '预付', '现付'];
 
 util.HOTEL_STAR = ['', '', '', '', '四星/高档', '五星/豪华'];
 util.HOTEL_STAR_SIMPLE = ['', '', '二星级', '三星级', '四星级', '五星级'];
+util.HOTEL_STAR_OFFICIALSTAR = ['', '', '经济', '舒适', '高档型', '豪华型'];
 
 util.CUSTOMER_PHONE = '400-811-3390';
 
@@ -152,125 +153,5 @@ util.OS = (function() {
 util.COMMON_PARAMS = {
   comm_from: 1
 };
-/*listApp*/ 
-util.INTERFACE_GETHOTELLIST = window.apiRootPath + '/rest/hotel/getHotelList';
-util.INTERFACE_GETHOTELLISTDANPIN = window.apiRootPath + '/rest/hotel/getMarketingHotelList';
-
-/*detailApp*/ 
-
-util.INTERFACE_GETHOTELINFO = window.apiRootPath + '/rest/hotel/getHotelInfoForP2P';
-// util.INTERFACE_GETHOTELINFO = window.apiRootPath + '/rest/hotel/getHotelInfo';
-util.INTERFACE_GETHOTELINFODANPIN = window.apiRootPath + '/rest/hotel/getMarketingHotelInfo';
-/*accountPhoneApp.js*/ 
-util.INTERFACE_UPDATEPHONE = window.apiRootPath + '/rest/user/updatePhone';
-/*accountPhoneApp.js verifyApp.js*/ 
-util.INTERFACE_GETVERIFYCODE = window.apiRootPath + '/rest/user/getVerifyCode';
-/*activityListApp.js*/ 
-util.INTERFACE_GETACTIVITIES = window.apiRootPath + '/rest/activity/getActivities';
-/*common--activityRouter.js activity.js*/ 
-// util.INTERFACE_GETACTIVITY = window.apiRootPath + '/rest/activity/getActivity';
-/*common--userCenter.js  activity.js*/ 
-util.INTERFACE_GETACCOUNTINFO = window.apiRootPath + '/rest/user/getAccountInfo';
-/*common--userCenter.js  activity.js*/ 
-util.INTERFACE_HUOLILOGIN = window.apiRootPath + '/rest/user/huoliLogin';
-/*activity.js*/ 
-util.INTERFACE_REWARDVOUCHERS = window.apiRootPath + '/rest/activity/rewardVouchers';
-/*hotelInfoApp.js*/ 
-util.INTERFACE_GETHOTELDETAIL = window.apiRootPath + '/rest/hotel/getHotelDetail';
-/*orderApp.js*/ 
-util.INTERFACE_ADDORDERINFO = window.apiRootPath + '/rest/order/addOrderInfo';
-/*orderApp.js  userOrderDetail.js*/ 
-util.INTERFACE_ORDERPAYNATIVE = window.apiRootPath + '/rest/order/orderPayNative';
-util.INTERFACE_MODIFYHOTELORDER = window.apiRootPath + '/rest/order/modifyHotelOrder';
-
-/*payApp.js*/ 
-util.INTERFACE_PAYCONFIG = window.apiRootPath + '/rest/wx/pay/payConfig';
-/*payApp.js*/
-util.INTERFACE_GETPREORDER = window.apiRootPath + '/rest/wx/pay/getPreOrder';
-/*payApp.js*/
-util.INTERFACE_GETORDERPAYMSG = window.apiRootPath + '/rest/order/getOrderPayMsg';
-
-/*userHome.js*/ 
-util.INTERFACE_QUITLOGIN = window.apiRootPath + '/rest/user/quitLogin';
-/*userAddress.js*/ 
-util.INTERFACE_GETCONTACT = window.apiRootPath + '/rest/user/getContact';
-/*userAddressForm.js userBillForm.js userPassengersForm.js*/ 
-util.INTERFACE_DELDATA = window.apiRootPath + '/rest/user/delData';
-/*userAddressForm.js*/ 
-util.INTERFACE_SAVEORUPDATECONTACT = window.apiRootPath + '/rest/user/saveOrUpdateContact';
-
-/*userBill.js*/ 
-util.INTERFACE_GETINVOICE = window.apiRootPath + '/rest/user/getInvoice';
-/*userBillForm.js*/ 
-util.INTERFACE_SAVEORUPDATEINVOICE = window.apiRootPath + '/rest/user/saveOrUpdateInvoice';
-
-/*userOrder.js*/ 
-util.INTERFACE_GETORDERLIST = window.apiRootPath + '/rest/order/getOrderList';
-/*userOrderDetail.js*/ 
-util.INTERFACE_GETHOTELORDER = window.apiRootPath + '/rest/order/getHotelOrder';
-/*userOrderDetail.js*/ 
-util.INTERFACE_ADDSPREADORDER = window.apiRootPath + '/rest/order/addSpreadOrder';
-/*userOrderDetail.js nativeOrderPreview.js*/ 
-util.INTERFACE_GETORDERINFO = window.apiRootPath + '/rest/order/getOrderInfo';
-/*userOrderDetail.js*/ 
-util.INTERFACE_CANCELORDER = window.apiRootPath + '/rest/order/cancelOrder';
-/*userOrderDetail.js*/ 
-util.INTERFACE_DELORDER = window.apiRootPath + '/rest/order/delOrder';
-/*userOrderHistory.js*/
-util.INTERFACE_GETORDERLOG = window.apiRootPath + '/rest/order/getOrderLog';
-/*userPassengers.js*/
-util.INTERFACE_GETACCOUNTGUESTS = window.apiRootPath + '/rest/user/getAccountGuests';
-/*userPassengersForm.js*/
-util.INTERFACE_SAVEORUPDATEPASSENGER = window.apiRootPath + '/rest/user/saveOrUpdatePassenger';
-/*verifyApp.js*/ 
-util.INTERFACE_LOGIN = window.apiRootPath + '/rest/user/login';
-/*voucher.js*/ 
-util.INTERFACE_GETACCOUNTVOFUCHERLOG = window.apiRootPath + '/rest/user/getAccountVoucherLog';
-
-util.INTERFACE_ALLCITY = window.apiRootPath + '/rest/hotel/getAllCities';
-util.INTERFACE_CIRCLESBYCITY = window.apiRootPath + '/rest/hotel/getCirclesByCity';
-
-util.INTERFACE_RECORDBOOKINFO = window.apiRootPath + '/rest/order/recordBookInfo';
-
-/*orderApp.js*/ 
-util.INTERFACE_GETLASTORDERCONTACTINFO = window.apiRootPath + '/rest/order/getLastOrderContactInfo';
-/*orderApp.js*/ 
-util.INTERFACE_GETMODIFYHOTELORDER = window.apiRootPath + '/rest/order/getModifyHotelOrder';
-
-/* userOrderDetail */
-util.INTERFACE_GETORDERPRESENTVOUCHER = window.apiRootPath + '/rest/order/getOrderPresentVoucher';
-util.INTERFACE_HUOLIPAYCHECK = window.apiRootPath + '/rest/order/huoliPayCheck';
-
-
-/*userOrderDetail.js*/ 
-util.INTERFACE_SAVEORUPDATEORDERINVOICE = window.apiRootPath + '/rest/order/saveOrUpdateOrderInvoice';
-util.INTERFACE_HASUNREADMSG = window.apiRootPath + '/rest/order/getUnreadMsgCount';
-util.INTERFACE_GETCHATURL = window.apiRootPath + '/rest/order/getChatUrl';
-
-util.INTERFACE_CANCELORDERAFTERPAY = window.apiRootPath + '/rest/order/cancelOrderAfterPay';
-util.INTERFACE_CANCELORDERAPPLY = window.apiRootPath + '/rest/order/cancelOrderApply';
-util.INTERFACE_UNDOCANCELORDERAPPLY = window.apiRootPath + '/rest/order/undoCancelOrderApply';
-
-/*modifyOrderApp.js*/ 
-util.INTERFACE_MODIFYORDERGUEST = window.apiRootPath + '/rest/order/modifyOrderGuest';
-util.INTERFACE_MODIFYORDERGUESTNOAPPLY = window.apiRootPath + '/rest/order/modifyOrderGuestNoApply';
-
-
-
-util.INTERFACE_SEARCHING = window.apiRootPath + '/rest/hotel/searchTip';
-
-util.INTERFACE_ORDERCHECK = window.apiRootPath + '/rest/order/orderCheck';
-/*indexApp.js*/ 
-util.INTERFACE_GETRECENTHOTELLIST = window.apiRootPath + '/rest/hotel/getRecentHotelList';
-util.INTERFACE_GETADDRESSBYCOOR = window.apiRootPath + '/rest/hotel/getAddressByCoor';
-
-util.INTERFACE_GETSERVERTIME = window.apiRootPath + '/rest/hotel/getServerTime';
-util.INTERFACE_GETHOTELINFODATA = window.apiRootPath + '/rest/hotel/getHotelInfoData';
-
-util.INTERFACE_GETLASTBOOKTIME = window.apiRootPath + '/rest/hotel/getLastBookTime';
-// 行程中间页面根据城市code获取城市列表
-util.INTERFACE_GETCITYBYTRAINCODE = window.apiRootPath + '/rest/hotel/getCityByTrainCode';
-util.INTERFACE_GETHUOLIORDERLIST = window.apiRootPath + '/huoli/order/getHuoLiOrderList';
-
 
 

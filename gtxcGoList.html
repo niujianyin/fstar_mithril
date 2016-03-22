@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>伙力特惠五星</title>
+  <link rel="import" href="htmls/commonHead.html?__inline">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="less/common.less" type="text/css">
+</head>
+<body>
+  <div class="common-loading" id="loading" style="display: block;">
+    <div id="loadingBg"></div>
+    <div id="loadMain">
+      <div id="loadCircle"></div>
+      <div id="loadHotel"></div>
+      <div id="loadTxt">正在加载...</div>
+    </div>
+  </div>
+  <!-- js要缓存 -->
+  <script src="scripts/lib/lib.js"></script>
+  <script src="scripts/common/common.js"></script>
+  <script>
+  
+  /* 返回数据
+   *"params": {
+    "city": "北京",
+    "cityid": 1,
+    "enddate": "20160402",
+    "from": "gtxc",
+    "pn": 0,
+    "ps": 10,
+    "st": 1,
+    "startdate": "20160401",
+    "stf": "score",
+    "stt": 1
+    },
+  */ 
+  // 接口
+  // http://103.37.151.253:9000/hotel/s?st=1&from=gtxc&param=ewoib3JkZXJfaWQiOiAiRTU1OTIyMTk3OCAiLAoic3ViX29yZGVyX2lkIjogIkU1NTkyMjE5NzgxMDUwMDAzICIsCiJ0cmFpbl9ubyI6ICI2MDU2IiwKImd1aWQiOiAiOTQwNUQzNTQtNTRFOS00QjM3LUE2MUQtODRFNjdEREM5MUE0IiwKInBhZ2UiOiAidHJpcCIsCiJkZXBhcnRfY29kZSI6ICJCVEMiLAoiZGVwYXJ0X25hbWUiOiAi5LiK5rW35Y2XIiwKImRlcGFydF9kYXRlIjogIjIwMTUtMTItMjIiLAoiZGVwYXJ0X3RpbWUiOiAiMDg6MTAiLAoiYXJyaXZlX2NvZGUiOiAiQkRDIiwKImFycml2ZV9uYW1lIjogIuWMl%2bS6rOWNlyIsCiJhcnJpdmVfZGF0ZSI6ICIyMDE2LTA0LTAxIiwKImFycml2ZV90aW1lIjogIjA4OjI5Igp9Cg%3d%3d
+  // 页面url
+  // http://103.37.151.253:9000/gtxcGoList.html?tripparam=ewoib3JkZXJfaWQiOiAiRTU1OTIyMTk3OCAiLAoic3ViX29yZGVyX2lkIjogIkU1NTkyMjE5NzgxMDUwMDAzICIsCiJ0cmFpbl9ubyI6ICI2MDU2IiwKImd1aWQiOiAiOTQwNUQzNTQtNTRFOS00QjM3LUE2MUQtODRFNjdEREM5MUE0IiwKInBhZ2UiOiAidHJpcCIsCiJkZXBhcnRfY29kZSI6ICJCVEMiLAoiZGVwYXJ0X25hbWUiOiAi5LiK5rW35Y2XIiwKImRlcGFydF9kYXRlIjogIjIwMTUtMTItMjIiLAoiZGVwYXJ0X3RpbWUiOiAiMDg6MTAiLAoiYXJyaXZlX2NvZGUiOiAiQkRDIiwKImFycml2ZV9uYW1lIjogIuWMl%2bS6rOWNlyIsCiJhcnJpdmVfZGF0ZSI6ICIyMDE2LTA0LTAxIiwKImFycml2ZV90aW1lIjogIjA4OjI5Igp9Cg%3d%3d
+
+
+  /* 返回数据
+   *"params": {
+    "city": "长春",
+    "cityid": 158,
+    "enddate": "20151207",
+    "from": "gtxc",
+    "pn": 0,
+    "ps": 10,
+    "st": 1,
+    "startdate": "20151206",
+    "stf": "score",
+    "stt": 1
+    },
+  */ 
+  // 接口
+  // http://103.37.151.253:9000/hotel/s?st=1&from=gtxc&param=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
+  // 页面url
+  // http://103.37.151.253:9000/gtxcGoList.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
+
+
+  (function() {
+    var gtxcGoList = {
+      getQueryString: function(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null) return decodeURIComponent(r[2]); return null;
+      }, 
+      go: function(trip){
+        if(!trip){
+          window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+          return;
+        }
+        // http://hotel.rsscc.cn/hotel/s?st=1&from=gtxc&param=ewoib3JkZXJfaWQiOiAiRTU1OTIyMTk3OCAiLAoic3ViX29yZGVyX2lkIjogIkU1NTkyMjE5NzgxMDUwMDAzICIsCiJ0cmFpbl9ubyI6ICI2MDU2IiwKImd1aWQiOiAiOTQwNUQzNTQtNTRFOS00QjM3LUE2MUQtODRFNjdEREM5MUE0IiwKInBhZ2UiOiAidHJpcCIsCiJkZXBhcnRfY29kZSI6ICJCVEMiLAoiZGVwYXJ0X25hbWUiOiAi5LiK5rW35Y2XIiwKImRlcGFydF9kYXRlIjogIjIwMTUtMTItMjIiLAoiZGVwYXJ0X3RpbWUiOiAiMDg6MTAiLAoiYXJyaXZlX2NvZGUiOiAiQkRDIiwKImFycml2ZV9uYW1lIjogIuWMl%2bS6rOWNlyIsCiJhcnJpdmVfZGF0ZSI6ICIyMDE2LTA0LTAxIiwKImFycml2ZV90aW1lIjogIjA4OjI5Igp9Cg%3d%3d
+        var self = this;
+        var dataReq = {
+          st: 1,
+          from: 'gtxc',
+          param: trip
+        };
+        m.request({
+          method: 'GET',
+          url: util.INTERFACE_GETHOTELDATA,  
+          data: dataReq
+        }).then(function(data) {
+          var trip = data.params;
+          if (trip && trip.city && trip.cityid) {
+            // console.log(trip);
+            var cityName = trip.city;
+            var cityId = trip.cityid;
+            util.cookie.setItem("lastCity", JSON.stringify({
+              name: cityName,
+              cityid: cityId
+            }));
+
+            var checkIn = trip.startdate,checkOut = trip.enddate;
+            try{
+              var year = checkIn.slice(0,4);
+              var month = checkIn.slice(4,6);
+              var day = checkIn.slice(6);
+              checkIn = year+"/"+month+"/"+day;
+              checkIn = new Date(checkIn);
+            }catch(e){
+              checkIn = new Date();
+            }
+            
+            util.reloadByTimeLocal(checkIn);
+            if(util.isReload){
+              checkIn = new Date();
+            }
+            try{
+              var eyear = checkOut.slice(0,4);
+              var emonth = checkOut.slice(4,6);
+              var eday = checkOut.slice(6);
+              checkOut = eyear+"/"+emonth+"/"+eday;
+              checkOut = new Date(checkOut);
+            }catch(e){
+              checkOut = util.nextDate(checkIn, 1);
+            }
+            
+            var listParamsObj = {
+              checkIn: checkIn.getTime(),
+              checkOut: checkOut.getTime(),
+              city: cityName,
+              from: 'gtgj',
+              tripparam: 1,
+              trip: JSON.stringify(trip)
+            };
+            var listParamsStr = m.route.buildQueryString(listParamsObj);
+            window.location.replace(location.origin +'/index.html#list?'+listParamsStr);
+          } else {
+            window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+          }
+        }, function() {
+          util.alert({
+            content: '网络不给力，请稍后再试试吧',
+            ok: '知道了'
+          }).then(function(){
+            window.location.replace(location.origin +'/index.html?from=gtgj&tripparam=1');
+          });
+          util.hideLoading();
+        });
+      },
+      controller: function() {
+        var self = this;
+        var tripparam = self.getQueryString('tripparam');
+        self.go(tripparam);
+      },
+      init: function(){
+        var self = this;
+        self.controller();
+      }
+    };
+    gtxcGoList.init();
+
+  })();
+  </script>
+</body>
+</html>

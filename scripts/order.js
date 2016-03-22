@@ -411,7 +411,7 @@ fstar.orderApp = (function() {
             "offlineprice": ''+offlineprice,
             "hotelcode":'' + self.hotelcode(),
             "bedtypeprefer":'' + self.bedtypePrefer(),
-            "paramprivate": '' + self.paramprivate()
+            "paramprivate": '' + self.paramprivate() //透传参数
           }
           if(self.quickconfirm() !== '-1' && self.quickconfirm() !== 'undefined'){
             orderData.quickconfirm = '' + self.quickconfirm();
@@ -956,6 +956,27 @@ fstar.orderApp = (function() {
         });
       },
 
+      showRedPackets: function(){
+        var self = this;
+        util.showLoading();
+        // http://hotel.huoli.com/rest/redenvelope/getUserRedEnvelope?huoliUserId=10235&status=1
+        var huoliUserId  =  util.header.phoneid;
+        m.request({
+          url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
+          method: 'GET',
+          background: true
+        }).then(function(result) {
+          util.hideLoading();
+          alert(JSON.stringify(result));
+        }, function() {
+          util.alert({
+            content: '网络不给力，请稍后再试试吧',
+            ok: '知道了'
+          });
+          util.hideLoading();
+        });
+      },
+
       deleteInput: function(key){
         var self = this;
         self[key]('');
@@ -1198,7 +1219,17 @@ fstar.orderApp = (function() {
                 m('span.orderApp-bedtype', ctrl.bedtypePrefer()),
                 m('.orderApp-arrow-right.common-icon-more-right')
               ])
-            ])
+            ]),
+
+            // m('li', [
+            //   m('span.label', '红包'),
+            //   m('span.content', {
+            //     honclick: ctrl.showRedPackets.bind(ctrl),
+            //   },[
+            //     m('span.orderApp-bedtype', ctrl.bedtypePrefer()),
+            //     m('.orderApp-arrow-right.common-icon-more-right')
+            //   ])
+            // ])
           ]),
           m('.common-border')
         ]),

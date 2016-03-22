@@ -26,7 +26,8 @@
 
 
   <!-- https://43.241.208.207:9000/hotel1/ -->
-  cd ~/Documents/workspace/fstarVue/webapp/src
+ <!--  cd ~/Documents/workspace/fstarVue/webapp/src -->
+  cd ~/workspace/github/fstar_mithril
   ./pb.sh
   <!-- ./new_debug.sh -->
   <!-- 测试服务器地址 -->
@@ -36,7 +37,10 @@
   
   <!-- 测试环境：搜索接口：http://103.37.151.253:9000/hotel/s -->
   http://103.37.151.253:9000/index.html
+  cd ~/workspace/github/fstar_mithril
   ./debug_new.sh
+
+  testurl:http://103.37.151.253:9000/index.html?from=hbgj
 
   <!-- https://43.241.208.207:9443/hotel1/ -->
 
@@ -50,6 +54,10 @@
   cd /usr/local/etc/nginx
   nginx.conf
   http://localhost/index.html
+
+  cd ~/workspace/github/fstar_mithril
+  sudo fis3 server start -p 15080
+  sudo fis3 release -w
   <!-- /usr/local/etc/nginx/nginx.conf  -->
 
   <!-- dev0 测试服务器 -->

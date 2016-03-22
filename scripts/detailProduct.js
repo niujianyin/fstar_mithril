@@ -138,11 +138,12 @@ fstar.detailProduct = (function() {
         var currentDate = util.dateFormatFmt(self.currentDate(), 'yyyy-MM-dd');
         var roomCount = '10',totalPrice = 0,qtyableArr=[],roomid='', onlineprice=0,offlineprice=0;
         var ratePlanInfo=product.paramprivate.ratePlanInfo;
+        var pdayPrice=product.paramprivate.dayPrice;
         totalPrice = product.totalprice;
         var guestType = 'All',quickconfirm='-1';
-        for(var dayprice in product.dayPrice){
-          if( product.dayPrice.hasOwnProperty(dayprice) ){
-            var onedayprice = product.dayPrice[dayprice];
+        for(var dayprice in pdayPrice){
+          if( pdayPrice.hasOwnProperty(dayprice) ){
+            var onedayprice = pdayPrice[dayprice];
             qtyableArr.push(onedayprice.left);
             // totalPrice += product.price;
             // 艺龙传roomid
@@ -231,7 +232,8 @@ fstar.detailProduct = (function() {
           "hotelName": m.route.param('name') || '酒店',  // 酒店名称
           "roomTypeName":room.roomTypeInfo.roomtypename || '房型', // 房型名称 
           "breakfast":ratePlanInfo.breakfast, // 早餐数量
-          "breakFastQty":util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早', // 早餐数量
+          "breakFastQty": product.breakfast, // 早餐数量
+          // "breakFastQty":util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早', // 早餐数量
           "bedType":room.roomTypeInfo.bed || '单床',// 床型
           "productType": productType, // 可枚举值:  1-到付酒店    4-预付酒店（下单进入支付流程） 6-部分付   7-担保到付
           "prodId":ratePlanInfo.rateplanid,// 暂时传递和 ratePlanId 相同的值
@@ -518,7 +520,8 @@ fstar.detailProduct = (function() {
           var ratePlanInfo = product.paramprivate.ratePlanInfo;
           // ratePlanInfo.paytype = 3; //测试部分付
           var paytype = util.PAYTYPE[ratePlanInfo.paytype] || '预付';
-          var breakfast = util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早';
+          // var breakfast = util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早';
+          var breakfast = product.breakfast;
           var final_addbed = util.ADDBED[addbed] || '';
 
           if(ratePlanInfo.paytype == 2 && ratePlanInfo.needcreditgarantee == "true"){

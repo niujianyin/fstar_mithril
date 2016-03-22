@@ -495,7 +495,8 @@ fstar.detailApp = (function() {
   // };
 
   detailApp.hotelDetailView = function(ctrl) {
-    var sheshi = ctrl.hotelInfo().hotelInfo.sheshi || [];
+    var hotelInfo = ctrl.hotelInfo().hotelInfo;
+    var sheshi = hotelInfo.sheshi || [];
     var parking = sheshi.indexOf('parking') > -1? 'detailApp-hotel-parking':'';
     var wifi = sheshi.indexOf('wifi') > -1? 'detailApp-hotel-wifi':'';
     // return m('.detailApp-hotel-detail', {
@@ -511,16 +512,23 @@ fstar.detailApp = (function() {
     //   m('.common-border')
     // ]);
 
-    var score = ctrl.hotelInfo().hotelInfo.userscore;
-    var commentnum = ctrl.hotelInfo().hotelInfo.commentnum;
+    var score = hotelInfo.userscore;
+    var commentnum = hotelInfo.commentnum;
     var noComment = commentnum<1;
+
+    var officialStar = hotelInfo.officialStar || 0;
+    var star = util.HOTEL_STAR_OFFICIALSTAR[hotelInfo.officialStar];
+    if(''+officialStar == '0'){
+      star = util.HOTEL_STAR_SIMPLE[hotelInfo.star];
+    }
+
     return m('.detailApp-hotel-comment', {
       honclick: noComment?'': ctrl.goComment.bind(ctrl)
     }, [
       m('.detailApp-hotel-detail-t.detailApp-hotel-detail-tt',{
         className: wifi + ' ' +parking
       },[
-        util.HOTEL_STAR_SIMPLE[ctrl.hotelInfo().hotelInfo.star],
+        star,
         m('span.common-icon-wifi'),
         m('span.common-icon-parking')
       ]),

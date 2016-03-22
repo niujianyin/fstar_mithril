@@ -19,6 +19,7 @@ fstar.listApp = (function() {
       keyword: m.prop(''),
       type: m.prop('q'),
       sid: m.prop(''),
+      sids: m.prop(''),
       lat: m.prop(''),
       lon: m.prop(''),
       typeid: m.prop(''),
@@ -36,6 +37,8 @@ fstar.listApp = (function() {
       // 地铁直达
       filterType3: m.prop(false),
 
+      trip: m.prop(false),
+
 
       hotelList: m.prop([]),
 
@@ -49,6 +52,7 @@ fstar.listApp = (function() {
       isLoading: m.prop(false),
 
       isShowSort:m.prop(false),
+
       showSort: function(){
         var self = this;
         self.isShowSort(true);
@@ -117,6 +121,7 @@ fstar.listApp = (function() {
           } else {
             self.noData(false);
           }
+          self.trip(false);
           util.redraw();
         });
       },
@@ -207,6 +212,9 @@ fstar.listApp = (function() {
             //   return brand.name;
             // }).join(',');
             dataReq.brandid = mybrand.map(function(brand,index){
+              if(brand.ids){
+                return brand.ids.join(',');
+              }
               return brand.id;
             }).join(',');
           }
@@ -328,6 +336,26 @@ fstar.listApp = (function() {
         // 追加城市参数
         util.extendCommon(dataReq);
 
+        if(self.trip()){
+          var trip = JSON.parse(self.trip());
+          if(trip){
+            if(trip.from){
+              dataReq.from = 'gtxc2';
+            }
+            if(trip.pn){
+              dataReq.pn = trip.pn;
+            }
+            if(trip.ps){
+              dataReq.ps = trip.ps;
+            }
+            if(trip.st){
+              dataReq.st = trip.st;
+            }
+          }
+        }
+
+        // alert(JSON.stringify(dataReq));
+
         // http://43.241.208.207:9900/st=4&city=%E5%8C%97%E4%BA%AC&q=%E5%B8%8C&ps=10
         m.request({
           url: util.INTERFACE_GETHOTELDATA,
@@ -357,7 +385,7 @@ fstar.listApp = (function() {
             beginDate: self.checkIn().getTime(),
             dayCount: self.stayDayCount()
           }).then(function(newDate) {
-            self.sortType('-1');
+            // self.sortType('-1');
             self.checkIn(newDate.beginDate);
             self.stayDayCount(newDate.dayCount);
             window.scrollTo(0, 0);
@@ -391,6 +419,7 @@ fstar.listApp = (function() {
             self.keyword(data.keyword);
             self.type(data.type);
             self.sid(data.id);
+            self.sids(data.ids);
             self.lat(data.lat);
             self.lon(data.lon);
             self.typeid(data.typeid);
@@ -402,6 +431,7 @@ fstar.listApp = (function() {
               self.brands([{
                 name:self.keyword(),
                 id: self.sid(),
+                ids: self.sids(),
                 typeid: self.typeid()
               }]);
             } else {
@@ -612,6 +642,25 @@ fstar.listApp = (function() {
       filter: function(filtertype){
         var self = this;
         if(filtertype==1){
+          // self.cityLoc({
+          //   name: '我的位置',
+          //   lat:'40.002274',
+          //   lon:'116.4868895'
+          // });
+          // util.hasCurPos = true;
+
+          // self.brands([]);
+          // self.circles([]);
+          // self.starLevel(['不限']);
+          // self.priceRange('不限');
+          // // self.sortType('-1');
+          // self.keyword('');
+          // self.isLoadingMoreNo(false);
+          // self.filterType1(true);
+          // self.sortType('距离优先');
+          // self.loadFirstPage();
+          // return;
+
           if(self.filterType1()){
             self.cityLoc(false);
             self.filterType1(false);
@@ -628,9 +677,9 @@ fstar.listApp = (function() {
                 self.keyword('');
                 self.isLoadingMoreNo(false);
                 self.filterType1(true);
-                self.loadFirstPage();
                 self.sortType('距离优先');
-                util.redraw();
+                self.loadFirstPage();
+                // util.redraw();
               }
             });
           }
@@ -727,6 +776,9 @@ fstar.listApp = (function() {
           from: util.NCOMMON_PARAMS.from,
           uid: util.NCOMMON_PARAMS.uid
         };
+
+        // alert(JSON.stringify(dataReq));
+        // alert(util.INTERFACE_GETHOTELMENUDATA);
         m.request({
           method: 'GET',
           url: util.INTERFACE_GETHOTELMENUDATA,
@@ -818,6 +870,7 @@ fstar.listApp = (function() {
         util.lazyLoad(false);
         util.scrollEnd(null, false);
         self.hotelList([]);
+        self.trip(false);
         document.getElementById('actionSheet').className = 'common-as';
       }
     },
@@ -844,9 +897,13 @@ fstar.listApp = (function() {
       if (m.route.param('reset')) {
         vm.filterReset();
       }
-
       if( vm.cityLoc() && vm.cityLoc().lat ){
         vm.filterType1(true);
+      }
+
+      var trip = m.route.param('trip');
+      if (trip) {
+        vm.trip(trip);
       }
     }
   };
@@ -977,11 +1034,16 @@ fstar.listApp = (function() {
       var userscore = (extend.userscore-0).toFixed(1);
       var commentcount = extend.commentnum;
       var pricesrc = util.PRICESRC[hotel.price.src] || '其他';
-      var star = util.HOTEL_STAR_SIMPLE[hotel.star];
       var parking = '';
       var wifi = '';
       var nearbyArr = false;
       var distance = extend.commercial;
+
+      var officialStar = hotel.officialStar || 0;
+      var star = util.HOTEL_STAR_OFFICIALSTAR[hotel.officialStar];
+      if(''+officialStar == '0'){
+        star = util.HOTEL_STAR_SIMPLE[hotel.star];
+      }
 
       var sheshi = extend.sheshi;
       for(var si=0,sl=sheshi.length; si<sl; si++){
@@ -1123,6 +1185,7 @@ fstar.listApp = (function() {
                   m('i', '起')
                 ]),
                 m('.listApp-hotel-tags', taglist.map(function(tag) {
+                  if(!tag){ return ''};
                   return m('span', tag)
                 }))
               ])
