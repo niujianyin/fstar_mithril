@@ -60,6 +60,8 @@ fstar.userOrderDetail = (function() {
       isPayDetail:m.prop(false),
       isPaying: m.prop(false),
       showDelay: m.prop(false),
+      hasRedPackets: m.prop(false),
+      redPacketsData: m.prop(false),
 
       hidePayDetail: function(){
         var self = this;
@@ -124,6 +126,11 @@ fstar.userOrderDetail = (function() {
                 }
               });
             }
+            if(data.redenvelopeid){
+              self.getRedPacket(data.redenvelopeid);
+            } else {
+              self.hasRedPackets(false);
+            }
             util.hideLoading();
             util.redraw();
           } else {
@@ -141,6 +148,40 @@ fstar.userOrderDetail = (function() {
           });
           util.hideLoading();
         });
+      },
+
+      getRedPacket: function(redenvelopeid){
+        /*
+          红包详情查询：
+          rest/redenvelope/getRedEnvelopeDetail?&huoliUserId=xxxx&redEnvelopeId=xxx GET
+          参数：huoLiUserId：管家用户ID
+            redEnvelopeId :红包ID
+          返回JSON对象:
+          code:100 为成功    其它为失败
+          {"code":100,"content":null,"redEnvelope":{"id":18,"userId":766302,"status":1,"expire":"2016-05-15","orderId":null,"type":"XRCLHB","price":0.03,"availableOrder":2,"modifyTime":"2016-02-15 10:54:25.0","source":null,"backPrice":null,"review":0,"start":"2016-02-15"}}
+        */ 
+        var self = this;
+        m.request({
+          method: 'get',
+          url: window.domainName+'/rest/redenvelope/getRedEnvelopeDetail?&huoliUserId='+util.header.phoneid+'&redEnvelopeId='+redenvelopeid,
+        }).then(function(result) {
+          util.log(result);
+          if (result.code == 100) {
+            self.hasRedPackets(true);
+            self.redPacketsData(result.redEnvelope);
+          } else {
+            self.hasRedPackets(false);
+            self.redPacketsData(false);
+          }
+          util.redraw();
+        }, function() {
+          util.alert({
+            content: '网络不给力，请稍后再试试吧',
+            ok: '知道了'
+          });
+          util.hideLoading();
+        });
+
       },
 
       // hh:mm
@@ -534,6 +575,7 @@ fstar.userOrderDetail = (function() {
   userOrderDetail.view = function(ctrl) {
     return m('.userOrderDetail-w', [
       userOrderDetail.mainView(ctrl),
+      userOrderDetail.redpacketView(ctrl),
       // userOrderDetail.historyView(ctrl),
     ]);
   };
@@ -1563,6 +1605,27 @@ fstar.userOrderDetail = (function() {
         ])
       ]);
     }
+  };
+
+  userOrderDetail.redpacketView = function(ctrl){
+    var redPacketsData = ctrl.redPacketsData();
+    var orderInfo = ctrl.orderInfo();
+    alert(JSON.stringify(orderInfo));
+
+    return ctrl.hasRedPackets()?
+    m('.orderApp-redpacket', [
+      m('span.orderApp-redpacket-icon.common_icon_packet'),
+      m('.orderApp-redpacket-txt', [
+        m('.orderApp-redpacket-top', '已申请返现'),
+        m('.orderApp-redpacket-bottom', [
+          util.dateFormatFmt(redPacketsData.expire, 'MM月dd日'),
+          '前￥',
+          orderInfo.packetBackPrice||0,
+          '现金将返入您的高铁账号'
+        ]),
+      ]),
+      // m('.orderApp-arrow-right.common-icon-more-right')
+    ]):'';
   };
 
   return userOrderDetail;

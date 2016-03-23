@@ -1107,7 +1107,7 @@ fstar.listApp = (function() {
       //   taglist = extend.tags;
       // }
       try{ 
-        taglist = extend.tags || [];
+        taglist = extend.tags.slice() || [];
       }catch(e){
         taglist = [];
       }
@@ -1140,6 +1140,9 @@ fstar.listApp = (function() {
         price = Math.ceil(hotel.price.price);
       }catch(e){
         price = 0;
+      }
+      if(extend.youhui == '返现'){
+        taglist.push('返现');
       }
 
       return m('li', {
@@ -1184,9 +1187,12 @@ fstar.listApp = (function() {
                   m('span.listApp-hotel-price.numFont', price),
                   m('i', '起')
                 ]),
-                m('.listApp-hotel-tags', taglist.map(function(tag) {
+                m('.listApp-hotel-tags', taglist.map(function(tag,idx) {
                   if(!tag){ return ''};
-                  return m('span', tag)
+                  if(tag == '返现'){
+                    return m('em.common_icon_package');
+                  }
+                  return m('span', tag);
                 }))
               ])
             ]),

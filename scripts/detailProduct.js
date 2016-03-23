@@ -63,7 +63,7 @@ fstar.detailProduct = (function() {
               self.roomInfos([]);
             } else {
               self.roomInfos(data[0].roomtypePrice || []);
-              self.hotelInfo(result.hotelInfo);
+              self.hotelInfo(result.datas.hotelInfo);
 
               if(data[0].soldout == 1){
                 self.isSoldOut( true );
@@ -248,6 +248,9 @@ fstar.detailProduct = (function() {
           "cancelable":"0",// 是否可取消：0  是可以取消    1是不可取消
           "hotelcode":''+m.route.param('hotelcode'),
           "quickconfirm": quickconfirm,
+          "hoteladdress": self.hotelInfo().address,
+          "youhui": product.youhui,
+          "youhuie": product.youhuie,
           "paramprivate": JSON.stringify(product.paramprivate || {})
           // "customersCount":'5',
           // "guestCount":'5',// 入住人数量
@@ -507,10 +510,16 @@ fstar.detailProduct = (function() {
             m('.detailProduct-li-room-type', roomTypeInfo.roomtypename),
             m('.detailProduct-li-room-info',m.trust(subInfos))
           ]),
-          m('.detailProduct-li-main', [
+          m('.detailProduct-li-main', {
+            className: (room.youhui == '返现')? 'detailProduct-li-main1':''
+          },[
             m('span.detailProduct-li-subprice', '￥'),
             m('span.detailProduct-li-price.numFont', Math.ceil(room.price) ),
-            m('i', '起')
+            m('i', '起'),
+            m('.common_icon_packagewrap',[
+              m('em.common_icon_package'),
+              '返现￥'+room.youhuie
+            ])
           ]),
           ratePlanPrice.length == 0?m('.common-icon-more-right1'):m('.common-icon-more-right-open'),
         ]),
@@ -585,13 +594,19 @@ fstar.detailProduct = (function() {
                 advanceBookHours>0?m('span.detailProduct-room-advance','需提前'+advanceBookHours+'小时预订'):''
               ]),
             ]),
-            m('.detailProduct-room-center',
+            m('.detailProduct-room-center',{
+              className: (product.youhui=="返现")? 'detailProduct-room-center1':''
+            },[
               m('.detailProduct-room-price',[
                 oneDay?'':m('span.detailProduct-room-average','均'),
                 m('i','￥'),
-                m('span.numFont',pprice)
+                m('span.numFont',pprice),
+                m('.common_icon_packagewrap',[
+                  m('em.common_icon_package'),
+                  '返现￥'+product.youhuie
+                ])
               ])
-            ),
+            ]),
             m('.detailProduct-room-right',[
               m('.detailProduct-order-btn',{
                honclick: psoldout == 1?'':ctrl.goOrderWrapper.bind(ctrl, room, product)

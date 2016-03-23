@@ -117,7 +117,10 @@ fstar.orderApp = (function() {
       orderId: m.prop(false),
       orderInformation: m.prop(false),
 
-
+      hasRedPackets: m.prop(true),
+      isShowRedPackets: m.prop(false),
+      redPacketsData: m.prop(false),
+      selectRedPacket: m.prop(false),
 
       isPayDetail:m.prop(false),
       hidePayDetail: function(){
@@ -411,10 +414,17 @@ fstar.orderApp = (function() {
             "offlineprice": ''+offlineprice,
             "hotelcode":'' + self.hotelcode(),
             "bedtypeprefer":'' + self.bedtypePrefer(),
+            "hoteladdress": ''+ self.hoteladdress(),
+            "packetBackPrice": ''+ self.youhuie()*self.hotelroomNum(),
             "paramprivate": '' + self.paramprivate() //透传参数
           }
+
           if(self.quickconfirm() !== '-1' && self.quickconfirm() !== 'undefined'){
             orderData.quickconfirm = '' + self.quickconfirm();
+          }
+
+          if(self.selectRedPacket()){
+            orderData.redenvelopeid = ''+self.selectRedPacket().id;
           }
 
           // console.log(orderData);
@@ -835,6 +845,15 @@ fstar.orderApp = (function() {
           // if(bedType.indexOf('大床') > -1 && bedType.indexOf('双床') > -1 ){
           //   vm.bedtypePrefer('对床型无要求');
           // }
+
+          vm.isShowRedPackets(false);
+          vm.redPacketsData(false);
+          vm.selectRedPacket(false);
+        }
+        if(vm.youhui() == '返现'){
+          vm.hasRedPackets(true);
+        } else {
+          vm.hasRedPackets(false);
         }
         if(util.dateCount( new Date(), new Date(vm.currentDate())) <= 0){
           var predate = vm.lastestDate();
@@ -960,14 +979,35 @@ fstar.orderApp = (function() {
         var self = this;
         util.showLoading();
         // http://hotel.huoli.com/rest/redenvelope/getUserRedEnvelope?huoliUserId=10235&status=1
-        var huoliUserId  =  util.header.phoneid;
+        var huoliUserId = util.header.phoneid;
         m.request({
           url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
           method: 'GET',
           background: true
         }).then(function(result) {
           util.hideLoading();
-          alert(JSON.stringify(result));
+          if(result.code == 100){
+            var redEnvelopes = result.redEnvelopes;
+            if(redEnvelopes && redEnvelopes.length > 0){
+              self.redPacketsData(redEnvelopes);
+              self.isShowRedPackets(true);
+              util.redraw();
+            } else {
+              self.hasRedPackets(false);
+              util.alert({
+                content: '账户没有可用红包',
+                ok: '知道了'
+              });
+            }
+          } else {
+            self.hasRedPackets(false);
+            util.alert({
+              content: '账户没有可用红包',
+              ok: '知道了'
+            });
+          }
+          util.hideLoading();
+          
         }, function() {
           util.alert({
             content: '网络不给力，请稍后再试试吧',
@@ -975,6 +1015,15 @@ fstar.orderApp = (function() {
           });
           util.hideLoading();
         });
+      },
+      hidePacket: function(){
+        var self = this;
+        self.isShowRedPackets(false);
+      },
+      chooseRedPacket: function(redpacket, index){
+        var self = this;
+        self.selectRedPacket(redpacket);
+        self.isShowRedPackets(false);
       },
 
       deleteInput: function(key){
@@ -1039,6 +1088,7 @@ fstar.orderApp = (function() {
       orderApp.payView(ctrl),
 
       ctrl.isPayDetail()?orderApp.payDetailView(ctrl):'',
+      ctrl.isShowRedPackets()?orderApp.redPacketsView(ctrl):'',
     ];
   };
 
@@ -1220,19 +1270,28 @@ fstar.orderApp = (function() {
                 m('.orderApp-arrow-right.common-icon-more-right')
               ])
             ]),
-
-            // m('li', [
-            //   m('span.label', '红包'),
-            //   m('span.content', {
-            //     honclick: ctrl.showRedPackets.bind(ctrl),
-            //   },[
-            //     m('span.orderApp-bedtype', ctrl.bedtypePrefer()),
-            //     m('.orderApp-arrow-right.common-icon-more-right')
-            //   ])
-            // ])
           ]),
           m('.common-border')
         ]),
+        
+        ctrl.hasRedPackets()?
+        m('.orderApp-redpacket', {
+          honclick: ctrl.showRedPackets.bind(ctrl),
+        },[
+          m('span.orderApp-redpacket-icon.common_icon_packet'),
+          m('.orderApp-redpacket-txt', [
+            ctrl.selectRedPacket()?[
+              m('.orderApp-redpacket-top', [
+                '高铁红包返现',
+                ctrl.originalPayType() == 1? ctrl.selectRedPacket().prepayBack*100:ctrl.selectRedPacket().collectBack*100,
+                '%，即',
+                m('span.orderApp-redpacket-price','￥'+ctrl.youhuie()*ctrl.hotelroomNum()),
+              ]),
+              m('.orderApp-redpacket-bottom', '离店后，￥'+ctrl.youhuie()*ctrl.hotelroomNum()+'现金将返入您的高铁账号'),
+            ]:'请选择要使用的红包'
+          ]),
+          m('.orderApp-arrow-right.common-icon-more-right')
+        ]):'',
 
         // 部分付
         (ctrl.productType() == 6) ?
@@ -1407,6 +1466,8 @@ fstar.orderApp = (function() {
             m('span',util.dateFormatFmt(ctrl.currentDate(), 'yyyy年MM月dd日')),
             ' 18:00前，可免费变更或取消订单，服务费全部原路退回。之后，取消或变更将扣除首晚服务费。']
           ):'',
+          m('li', [m('span.orderApp-icon-circle'), '非立即确认产品需等待酒店确认，如无法确认则全额退款。']
+          )
           // m('li', [m('span.orderApp-icon-circle'), '确认前，免费取消，预付的费用全额退回。']
           // ),
           // m('li', [m('span.orderApp-icon-circle'), '成功确认后，不可取消或变更订单。'])
@@ -1609,7 +1670,28 @@ fstar.orderApp = (function() {
         ]),
       ]);
     }
-    
+  };
+
+  orderApp.redPacketsView = function(ctrl) {
+    return m('.orderApp-packet.show',[
+      m('.orderApp-packet-bg',{
+        onclick: ctrl.hidePacket.bind(ctrl)
+      }),
+      m('.orderApp-packet-main',[
+        m('.orderApp-packet-title', '选择高铁红包'),
+        m('.orderApp-packet-items',[
+          ctrl.redPacketsData().map(function(value, index){
+            return m('.orderApp-packet-item',{
+              className: value.id==ctrl.selectRedPacket().id? 'selected':'',
+              onclick: ctrl.chooseRedPacket.bind(ctrl, value, index)
+            },[
+              m('.orderApp-packet-item-top','高铁红包'),
+              m('.orderApp-packet-item-bottom','预付返现'+value.prepayBack*100+'%，到店付返现'+value.collectBack*100+'%，有效期至 '+value.expire),
+            ]);
+          })
+        ])
+      ])
+    ]);
   };
 
   return orderApp;

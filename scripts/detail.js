@@ -655,10 +655,13 @@ fstar.detailApp = (function() {
         honclick: ctrl['p'+index]()?ctrl.goProduct.bind(ctrl, product.bigsrc):''
       }, [
         m('.detailApp-supplier-label', productSource),
-        isOwnerGJ || ctrl['p'+index]()?m('.detailApp-supplier-main', [
+        isOwnerGJ || ctrl['p'+index]()?m('.detailApp-supplier-main', {
+          className: (product.youhui == '返现')? 'detailApp-supplier-main1':''
+        },[
           m('span.detailApp-supplier-subprice', '￥'),
           m('span.detailApp-supplier-price.numFont', Math.ceil(product.price)),
-          m('i', '起')
+          m('i', '起'),
+          m('em.common_icon_package')
         ]):m('.detailApp-supplier-main', [
           m('.detailApp-supplier-loading')
         ]),
