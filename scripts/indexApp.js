@@ -633,7 +633,8 @@ fstar.indexApp = (function() {
     return m('.indexApp', [
       indexApp.searchView(ctrl),
       m('.common-border'),
-      indexApp.myBillView(ctrl)
+      indexApp.myBillView(ctrl),
+      indexApp.redPacketsView(ctrl),
     ]);
   };
 
@@ -738,6 +739,15 @@ fstar.indexApp = (function() {
     ]);
   };
 
+  indexApp.redPacketsView = function(ctrl) {
+    return m('.indexApp-rp', [
+      m('span.indexApp-rp-icon.common_icon_packet'),
+      m('.indexApp-rp-txt', [
+        m('.indexApp-rp-top', '高铁管家红包'),
+        m('.indexApp-rp-bottom', '预订酒店可用高铁管家红包，离店后领取返现'),
+      ]),
+    ]);
+  };
   return indexApp;
 
 })();

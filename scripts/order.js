@@ -845,16 +845,16 @@ fstar.orderApp = (function() {
           // if(bedType.indexOf('大床') > -1 && bedType.indexOf('双床') > -1 ){
           //   vm.bedtypePrefer('对床型无要求');
           // }
-
+          
+          vm.hasRedPackets(false);
           vm.isShowRedPackets(false);
           vm.redPacketsData(false);
           vm.selectRedPacket(false);
+          if(vm.youhui() == '返现'){
+            vm.getRedPacketsData();
+          }
         }
-        if(vm.youhui() == '返现'){
-          vm.hasRedPackets(true);
-        } else {
-          vm.hasRedPackets(false);
-        }
+        
         if(util.dateCount( new Date(), new Date(vm.currentDate())) <= 0){
           var predate = vm.lastestDate();
           if(predate < 16){ predate = 16}
@@ -975,38 +975,28 @@ fstar.orderApp = (function() {
         });
       },
 
-      showRedPackets: function(){
+      getRedPacketsData: function(){
         var self = this;
-        util.showLoading();
         // http://hotel.huoli.com/rest/redenvelope/getUserRedEnvelope?huoliUserId=10235&status=1
         var huoliUserId = util.header.phoneid;
         m.request({
           url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
-          method: 'GET',
-          background: true
+          method: 'GET'
         }).then(function(result) {
-          util.hideLoading();
           if(result.code == 100){
             var redEnvelopes = result.redEnvelopes;
             if(redEnvelopes && redEnvelopes.length > 0){
               self.redPacketsData(redEnvelopes);
-              self.isShowRedPackets(true);
-              util.redraw();
+              self.hasRedPackets(true);
             } else {
               self.hasRedPackets(false);
-              util.alert({
-                content: '账户没有可用红包',
-                ok: '知道了'
-              });
+              self.redPacketsData(false);
             }
           } else {
             self.hasRedPackets(false);
-            util.alert({
-              content: '账户没有可用红包',
-              ok: '知道了'
-            });
+            self.redPacketsData(false);
           }
-          util.hideLoading();
+          util.redraw();
           
         }, function() {
           util.alert({
@@ -1015,6 +1005,11 @@ fstar.orderApp = (function() {
           });
           util.hideLoading();
         });
+      },
+
+      showRedPackets: function(){
+        var self = this;
+        self.isShowRedPackets(true);
       },
       hidePacket: function(){
         var self = this;
@@ -1276,7 +1271,7 @@ fstar.orderApp = (function() {
         
         ctrl.hasRedPackets()?
         m('.orderApp-redpacket', {
-          honclick: ctrl.showRedPackets.bind(ctrl),
+          onclick: ctrl.showRedPackets.bind(ctrl),
         },[
           m('span.orderApp-redpacket-icon.common_icon_packet'),
           m('.orderApp-redpacket-txt', [

@@ -1610,7 +1610,6 @@ fstar.userOrderDetail = (function() {
   userOrderDetail.redpacketView = function(ctrl){
     var redPacketsData = ctrl.redPacketsData();
     var orderInfo = ctrl.orderInfo();
-    alert(JSON.stringify(orderInfo));
 
     return ctrl.hasRedPackets()?
     m('.orderApp-redpacket', [
