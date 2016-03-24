@@ -121,6 +121,7 @@ fstar.orderApp = (function() {
       isShowRedPackets: m.prop(false),
       redPacketsData: m.prop(false),
       selectRedPacket: m.prop(false),
+      isLoadRedPackets: m.prop(false),
 
       isPayDetail:m.prop(false),
       hidePayDetail: function(){
@@ -349,6 +350,19 @@ fstar.orderApp = (function() {
         
 
         if(errorTotal === 0){
+          if(util.dateCount( new Date(), new Date(self.currentDate())) <= 0){
+            var lastestdate = self.lastestDate();
+            var nowdate = (new Date()).getHours();
+            util.log(lastestdate);
+            util.log(nowdate);
+            if(lastestdate <= nowdate){
+              util.alert({
+                content: '您选择的最晚到店时间错误，请重新选择。'
+              });
+              return;
+            }
+          }
+          self.isLoadRedPackets(true);
           self.isPaying(true);
 
           clearTimeout(orderApp.timer);
@@ -850,10 +864,15 @@ fstar.orderApp = (function() {
           vm.isShowRedPackets(false);
           vm.redPacketsData(false);
           vm.selectRedPacket(false);
+
           if(vm.youhui() == '返现'){
             vm.getRedPacketsData();
+          } else {
+            vm.hasRedPackets(false);
           }
         }
+
+        
         
         if(util.dateCount( new Date(), new Date(vm.currentDate())) <= 0){
           var predate = vm.lastestDate();
@@ -983,19 +1002,50 @@ fstar.orderApp = (function() {
           url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
           method: 'GET'
         }).then(function(result) {
+          self.hasRedPackets(true);
           if(result.code == 100){
             var redEnvelopes = result.redEnvelopes;
             if(redEnvelopes && redEnvelopes.length > 0){
               self.redPacketsData(redEnvelopes);
-              self.hasRedPackets(true);
             } else {
-              self.hasRedPackets(false);
               self.redPacketsData(false);
             }
           } else {
-            self.hasRedPackets(false);
             self.redPacketsData(false);
           }
+          self.isLoadRedPackets(false);
+          util.redraw();
+          
+        }, function() {
+          util.alert({
+            content: '网络不给力，请稍后再试试吧',
+            ok: '知道了'
+          });
+          util.hideLoading();
+        });
+      },
+      getRedPacketsDataLoad: function(){
+        var self = this;
+        // http://hotel.huoli.com/rest/redenvelope/getUserRedEnvelope?huoliUserId=10235&status=1
+        var huoliUserId = util.header.phoneid;
+        m.request({
+          url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
+          method: 'GET'
+        }).then(function(result) {
+          if(result.code == 100){
+            var redEnvelopes = result.redEnvelopes;
+            if(redEnvelopes && redEnvelopes.length > 0){
+              self.redPacketsData(redEnvelopes);
+              self.isShowRedPackets(true);
+            } else {
+              self.redPacketsData(false);
+              self.isShowRedPackets(false);
+            }
+          } else {
+            self.redPacketsData(false);
+            self.isShowRedPackets(false);
+          }
+          self.isLoadRedPackets(false);
           util.redraw();
           
         }, function() {
@@ -1009,7 +1059,12 @@ fstar.orderApp = (function() {
 
       showRedPackets: function(){
         var self = this;
-        self.isShowRedPackets(true);
+        if(self.isLoadRedPackets()){
+          self.getRedPacketsDataLoad();
+        } else {
+          self.isShowRedPackets(true);
+          util.redraw();
+        }
       },
       hidePacket: function(){
         var self = this;
@@ -1271,10 +1326,11 @@ fstar.orderApp = (function() {
         
         ctrl.hasRedPackets()?
         m('.orderApp-redpacket', {
-          onclick: ctrl.showRedPackets.bind(ctrl),
+          honclick: ctrl.redPacketsData()? ctrl.showRedPackets.bind(ctrl):'',
         },[
           m('span.orderApp-redpacket-icon.common_icon_packet'),
           m('.orderApp-redpacket-txt', [
+            ctrl.redPacketsData()?
             ctrl.selectRedPacket()?[
               m('.orderApp-redpacket-top', [
                 '高铁红包返现',
@@ -1283,7 +1339,7 @@ fstar.orderApp = (function() {
                 m('span.orderApp-redpacket-price','￥'+ctrl.youhuie()*ctrl.hotelroomNum()),
               ]),
               m('.orderApp-redpacket-bottom', '离店后，￥'+ctrl.youhuie()*ctrl.hotelroomNum()+'现金将返入您的高铁账号'),
-            ]:'请选择要使用的红包'
+            ]:'请选择要使用的红包':'您没有可用的高铁管家红包'
           ]),
           m('.orderApp-arrow-right.common-icon-more-right')
         ]):'',

@@ -1608,23 +1608,94 @@ fstar.userOrderDetail = (function() {
   };
 
   userOrderDetail.redpacketView = function(ctrl){
+    if(!ctrl.hasRedPackets()){ return '';}
     var redPacketsData = ctrl.redPacketsData();
     var orderInfo = ctrl.orderInfo();
+    var status = ctrl.status();
+    var titleTxt = '';
+    var detailTxt = '';
+    var packetBackPrice = orderInfo.packetBackPrice||0;
+    // 到付
+    if (ctrl.producttype() == 1) {
+      // matchStatus：0 临时订单（待支付） 1 确认中 2 已确认 3 已入驻 4 已结账 5 已取消6内部取消  10 支付成功 第三方未支付成功
+      switch(status){
+        case '0':
+          break;
+        case '1':
+          titleTxt='等待订单确认';
+          detailTxt='红包会在订单确认后使用';
+          break;
+        case '2':
+          titleTxt='红包使用成功';
+          detailTxt='离店后15天内，￥'+packetBackPrice+'将返入您的高铁管家账户';
+          break;
+        case '3':
+          titleTxt='红包使用成功';
+          detailTxt='离店后15天内，￥'+packetBackPrice+'将返入您的高铁管家账户';
+          break;
+        case '4':
+          titleTxt='红包使用成功';
+          detailTxt='离店后15天内，￥'+packetBackPrice+'将返入您的高铁管家账户';
+          break;
+        case '5':
+          titleTxt='红包将在10分钟内退还';
+          detailTxt='您可以使用该红包继续预订酒店';
+          break;
+        case '6':
+          titleTxt='红包将在10分钟内退还';
+          detailTxt='您可以使用该红包继续预订酒店';
+          break;
+        case '10':
+          titleTxt='等待订单确认';
+          detailTxt='红包会在订单确认后使用';
+          break;
+      }
+          
+    } else{
+      switch(status){
+        case '0':
+          titleTxt='等待订单确认';
+          detailTxt='红包会在订单确认后使用';
+          break;
+        case '1':
+          titleTxt='等待订单确认';
+          detailTxt='红包会在订单确认后使用';
+          break;
+        case '2':
+          titleTxt='红包使用成功';
+          detailTxt='离店后15天内，￥'+packetBackPrice+'将返入您的高铁管家账户';
+          break;
+        case '3':
+          titleTxt='红包使用成功';
+          detailTxt='离店后15天内，￥'+packetBackPrice+'将返入您的高铁管家账户';
+          break;
+        case '4':
+          titleTxt='红包使用成功';
+          detailTxt='离店后15天内，￥'+packetBackPrice+'将返入您的高铁管家账户';
+          break;
+        case '5':
+          titleTxt='红包将在10分钟内退还';
+          detailTxt='您可以使用该红包继续预订酒店';
+          break;
+        case '6':
+          titleTxt='红包将在10分钟内退还';
+          detailTxt='您可以使用该红包继续预订酒店';
+          break;
+        case '10':
+          titleTxt='等待订单确认';
+          detailTxt='红包会在订单确认后使用';
+          break;
+      }
+    }
 
-    return ctrl.hasRedPackets()?
-    m('.orderApp-redpacket', [
+    return m('.orderApp-redpacket', [
       m('span.orderApp-redpacket-icon.common_icon_packet'),
       m('.orderApp-redpacket-txt', [
-        m('.orderApp-redpacket-top', '已申请返现'),
-        m('.orderApp-redpacket-bottom', [
-          util.dateFormatFmt(redPacketsData.expire, 'MM月dd日'),
-          '前￥',
-          orderInfo.packetBackPrice||0,
-          '现金将返入您的高铁账号'
-        ]),
+        m('.orderApp-redpacket-top', titleTxt),
+        m('.orderApp-redpacket-bottom', detailTxt),
       ]),
       // m('.orderApp-arrow-right.common-icon-more-right')
-    ]):'';
+    ])
   };
 
   return userOrderDetail;

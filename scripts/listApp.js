@@ -1041,9 +1041,10 @@ fstar.listApp = (function() {
       var nearbyArr = false;
       var distance = extend.commercial;
 
-      var officialStar = hotel.officialStar || 0;
-      var star = util.HOTEL_STAR_OFFICIALSTAR[hotel.officialStar];
-      if(''+officialStar == '0'){
+      var officialstar = extend.officialstar || '0';
+      // console.log(officialstar);
+      var star = util.HOTEL_STAR_OFFICIALSTAR[officialstar];
+      if( officialstar == '0' || officialstar > 5){
         star = util.HOTEL_STAR_SIMPLE[hotel.star];
       }
 

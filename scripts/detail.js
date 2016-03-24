@@ -516,9 +516,10 @@ fstar.detailApp = (function() {
     var commentnum = hotelInfo.commentnum;
     var noComment = commentnum<1;
 
-    var officialStar = hotelInfo.officialStar || 0;
-    var star = util.HOTEL_STAR_OFFICIALSTAR[hotelInfo.officialStar];
-    if(''+officialStar == '0'){
+    var officialstar = hotelInfo.officialstar || '0';
+    // console.log(officialstar);
+    var star = util.HOTEL_STAR_OFFICIALSTAR[officialstar];
+    if( officialstar == '0' || officialstar > 5){
       star = util.HOTEL_STAR_SIMPLE[hotelInfo.star];
     }
 
