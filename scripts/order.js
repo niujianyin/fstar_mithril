@@ -1311,15 +1311,15 @@ fstar.orderApp = (function() {
               ])
             ]),
 
-            m('li', [
-              m('span.label', '特殊要求'),
-              m('span.content', {
-                honclick: ctrl.goDemand.bind(ctrl),
-              },[
-                m('span.orderApp-bedtype', ctrl.bedtypePrefer()),
-                m('.orderApp-arrow-right.common-icon-more-right')
-              ])
-            ]),
+            // m('li', [
+            //   m('span.label', '特殊要求'),
+            //   m('span.content', {
+            //     honclick: ctrl.goDemand.bind(ctrl),
+            //   },[
+            //     m('span.orderApp-bedtype', ctrl.bedtypePrefer()),
+            //     m('.orderApp-arrow-right.common-icon-more-right')
+            //   ])
+            // ]),
           ]),
           m('.common-border')
         ]),
@@ -1339,7 +1339,10 @@ fstar.orderApp = (function() {
                 m('span.orderApp-redpacket-price','￥'+ctrl.youhuie()*ctrl.hotelroomNum()),
               ]),
               m('.orderApp-redpacket-bottom', '离店后，￥'+ctrl.youhuie()*ctrl.hotelroomNum()+'现金将返入您的高铁账号'),
-            ]:'请选择要使用的红包':'您没有可用的高铁管家红包'
+            ]:'请选择要使用的红包':[
+              m('.orderApp-redpacket-top', '您没有可用的高铁管家红包'),
+              m('.orderApp-redpacket-bottom', '您在高铁管家购买火车票后,会获赠红包'),
+            ],
           ]),
           m('.orderApp-arrow-right.common-icon-more-right')
         ]):'',
