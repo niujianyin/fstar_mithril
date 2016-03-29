@@ -173,7 +173,7 @@ fstar.detailProduct = (function() {
         }
 
         roomCount = Math.min.apply(Math,qtyableArr);
-        if(roomCount<10){ roomCount=10}
+        // if(roomCount<10){ roomCount=10}
         // 付款类型，0-未知，1-预付，2-到付，3-部分付 4-强制担保
         // 3-部分付  onlineprice offlineprice
         //提交订单付款类型  转换成： 1-到付酒店 4-预付酒店（下单进入支付流程） 6-部分付（p2p到付）  7-担保到付

@@ -1226,6 +1226,18 @@ fstar.orderApp = (function() {
       lastestDate = util.dateFormatFmt( util.nextDate(new Date(lastestDate),1), "yyyy/MM/dd");
     }
 
+    // 红包返现价格前端计算
+    var num = ctrl.hotelroomNum();
+    var totalPrice = num*ctrl.cprice();
+    var redpacketPrice=0;
+    if(ctrl.productType() == 1){
+       // 到付
+       redpacketPrice= Math.ceil(totalPrice*0.08);
+    } else {
+       // 预付
+       redpacketPrice= Math.ceil(totalPrice*0.03);
+    }
+
     return m('.orderApp-form', [
         // 入住人信息
         m('.common-table2.mt0', [
@@ -1336,9 +1348,9 @@ fstar.orderApp = (function() {
                 '高铁红包返现',
                 ctrl.originalPayType() == 1? ctrl.selectRedPacket().prepayBack*100:ctrl.selectRedPacket().collectBack*100,
                 '%，即',
-                m('span.orderApp-redpacket-price','￥'+ctrl.youhuie()*ctrl.hotelroomNum()),
+                m('span.orderApp-redpacket-price','￥'+redpacketPrice),
               ]),
-              m('.orderApp-redpacket-bottom', '离店后，￥'+ctrl.youhuie()*ctrl.hotelroomNum()+'现金将返入您的高铁账号'),
+              m('.orderApp-redpacket-bottom', '离店后，￥'+redpacketPrice+'现金将返入您的高铁账号'),
             ]:'请选择要使用的红包':[
               m('.orderApp-redpacket-top', '您没有可用的高铁管家红包'),
               m('.orderApp-redpacket-bottom', '您在高铁管家购买火车票后,会获赠红包'),
@@ -1520,7 +1532,7 @@ fstar.orderApp = (function() {
             m('span',util.dateFormatFmt(ctrl.currentDate(), 'yyyy年MM月dd日')),
             ' 18:00前，可免费变更或取消订单，服务费全部原路退回。之后，取消或变更将扣除首晚服务费。']
           ):'',
-          m('li', [m('span.orderApp-icon-circle'), '非立即确认产品需等待酒店确认，如无法确认则全额退款。']
+          m('li', [m('span.orderApp-icon-circle'), '未标注『立即确认』的产品需等待酒店确认，如无法确认则全额退款。']
           )
           // m('li', [m('span.orderApp-icon-circle'), '确认前，免费取消，预付的费用全额退回。']
           // ),
