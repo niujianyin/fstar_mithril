@@ -1533,7 +1533,9 @@ fstar.orderApp = (function() {
             ' 18:00前，可免费变更或取消订单，服务费全部原路退回。之后，取消或变更将扣除首晚服务费。']
           ):'',
           m('li', [m('span.orderApp-icon-circle'), '未标注『立即确认』的产品需等待酒店确认，如无法确认则全额退款。']
-          )
+          ),
+          ctrl.guzhecancelable() == '1'?m('li', [m('span.orderApp-icon-circle'), '标注『不可取消』的产品订单提交后不可取消或修改，如未预订成功，预付费用全部原路退还。']
+          ):'',
           // m('li', [m('span.orderApp-icon-circle'), '确认前，免费取消，预付的费用全额退回。']
           // ),
           // m('li', [m('span.orderApp-icon-circle'), '成功确认后，不可取消或变更订单。'])
