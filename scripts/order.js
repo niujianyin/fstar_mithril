@@ -1265,7 +1265,7 @@ fstar.orderApp = (function() {
                         m('input.orderApp-form-person-passengers',{
                           type:'text', 
                           autocomplete:"off",
-                          placeholder: '姓名，1间房填1个人',
+                          placeholder: '请填入住人真实姓名',
                           value: ctrl['dataCustomer_'+i](),
                           onfocus: ctrl.getFocus.bind(ctrl, 'validateCustomer_'+i),
                           onkeyup: ctrl.onKeyDown.bind(ctrl, 'dataCustomer_'+i),
