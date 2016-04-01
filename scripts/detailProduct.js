@@ -63,7 +63,7 @@ fstar.detailProduct = (function() {
               self.roomInfos([]);
             } else {
               self.roomInfos(data[0].roomtypePrice || []);
-              self.hotelInfo(result.hotelInfo);
+              self.hotelInfo(result.datas.hotelInfo);
 
               if(data[0].soldout == 1){
                 self.isSoldOut( true );
@@ -138,11 +138,12 @@ fstar.detailProduct = (function() {
         var currentDate = util.dateFormatFmt(self.currentDate(), 'yyyy-MM-dd');
         var roomCount = '10',totalPrice = 0,qtyableArr=[],roomid='', onlineprice=0,offlineprice=0;
         var ratePlanInfo=product.paramprivate.ratePlanInfo;
+        var pdayPrice=product.paramprivate.dayPrice;
         totalPrice = product.totalprice;
         var guestType = 'All',quickconfirm='-1';
-        for(var dayprice in product.dayPrice){
-          if( product.dayPrice.hasOwnProperty(dayprice) ){
-            var onedayprice = product.dayPrice[dayprice];
+        for(var dayprice in pdayPrice){
+          if( pdayPrice.hasOwnProperty(dayprice) ){
+            var onedayprice = pdayPrice[dayprice];
             qtyableArr.push(onedayprice.left);
             // totalPrice += product.price;
             // 艺龙传roomid
@@ -172,7 +173,7 @@ fstar.detailProduct = (function() {
         }
 
         roomCount = Math.min.apply(Math,qtyableArr);
-        if(roomCount<10){ roomCount=10}
+        // if(roomCount<10){ roomCount=10}
         // 付款类型，0-未知，1-预付，2-到付，3-部分付 4-强制担保
         // 3-部分付  onlineprice offlineprice
         //提交订单付款类型  转换成： 1-到付酒店 4-预付酒店（下单进入支付流程） 6-部分付（p2p到付）  7-担保到付
@@ -199,6 +200,11 @@ fstar.detailProduct = (function() {
         }
         
         // var payType = productType==4 || productType == 6;
+        var tags= product.tags || [];
+        var guzhecancelable = 0;
+        if(tags.indexOf("不可取消") > -1){
+          guzhecancelable = 1;
+        }
         
         var hotelInfoData={
           "needcreditgarantee": needcreditgarantee,
@@ -231,7 +237,8 @@ fstar.detailProduct = (function() {
           "hotelName": m.route.param('name') || '酒店',  // 酒店名称
           "roomTypeName":room.roomTypeInfo.roomtypename || '房型', // 房型名称 
           "breakfast":ratePlanInfo.breakfast, // 早餐数量
-          "breakFastQty":util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早', // 早餐数量
+          "breakFastQty": product.breakfast, // 早餐数量
+          // "breakFastQty":util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早', // 早餐数量
           "bedType":room.roomTypeInfo.bed || '单床',// 床型
           "productType": productType, // 可枚举值:  1-到付酒店    4-预付酒店（下单进入支付流程） 6-部分付   7-担保到付
           "prodId":ratePlanInfo.rateplanid,// 暂时传递和 ratePlanId 相同的值
@@ -246,6 +253,10 @@ fstar.detailProduct = (function() {
           "cancelable":"0",// 是否可取消：0  是可以取消    1是不可取消
           "hotelcode":''+m.route.param('hotelcode'),
           "quickconfirm": quickconfirm,
+          "hoteladdress": self.hotelInfo().address,
+          "youhui": product.youhui,
+          "youhuie": product.youhuie,
+          "guzhecancelable": guzhecancelable,
           "paramprivate": JSON.stringify(product.paramprivate || {})
           // "customersCount":'5',
           // "guestCount":'5',// 入住人数量
@@ -505,10 +516,16 @@ fstar.detailProduct = (function() {
             m('.detailProduct-li-room-type', roomTypeInfo.roomtypename),
             m('.detailProduct-li-room-info',m.trust(subInfos))
           ]),
-          m('.detailProduct-li-main', [
+          m('.detailProduct-li-main', {
+            className: (room.youhui == '返现')? 'detailProduct-li-main1':''
+          },[
             m('span.detailProduct-li-subprice', '￥'),
             m('span.detailProduct-li-price.numFont', Math.ceil(room.price) ),
-            m('i', '起')
+            m('i', '起'),
+            m('.common_icon_packagewrap',[
+              m('em.common_icon_package'),
+              '返现￥'+room.youhuie
+            ])
           ]),
           ratePlanPrice.length == 0?m('.common-icon-more-right1'):m('.common-icon-more-right-open'),
         ]),
@@ -518,11 +535,18 @@ fstar.detailProduct = (function() {
           var ratePlanInfo = product.paramprivate.ratePlanInfo;
           // ratePlanInfo.paytype = 3; //测试部分付
           var paytype = util.PAYTYPE[ratePlanInfo.paytype] || '预付';
-          var breakfast = util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早';
+          // var breakfast = util.BREAKFASE_TYPE[ratePlanInfo.breakfast] || '多早';
+          var breakfast = product.breakfast;
           var final_addbed = util.ADDBED[addbed] || '';
 
-          if(ratePlanInfo.paytype == 2 && ratePlanInfo.needcreditgarantee == "true"){
-            paytype = '担保';
+          // if(ratePlanInfo.paytype == 2 && ratePlanInfo.needcreditgarantee == "true"){
+          //   paytype = '担保';
+          // }
+          //  calcguarantee逻辑是： 0：不担保（显示预付或者到付）  1.条件担保  2.强制担保
+          if(product.calcguarantee == 1){
+            paytype = '条件担保';
+          } else if(product.calcguarantee == 2){
+            paytype = '强制担保';
           }
 
           var advanceBookHours = parseInt(ratePlanInfo.advancebookhours);
@@ -582,13 +606,19 @@ fstar.detailProduct = (function() {
                 advanceBookHours>0?m('span.detailProduct-room-advance','需提前'+advanceBookHours+'小时预订'):''
               ]),
             ]),
-            m('.detailProduct-room-center',
+            m('.detailProduct-room-center',{
+              className: (product.youhui=="返现")? 'detailProduct-room-center1':''
+            },[
               m('.detailProduct-room-price',[
                 oneDay?'':m('span.detailProduct-room-average','均'),
                 m('i','￥'),
-                m('span.numFont',pprice)
+                m('span.numFont',pprice),
+                m('.common_icon_packagewrap',[
+                  m('em.common_icon_package'),
+                  '返现￥'+product.youhuie
+                ])
               ])
-            ),
+            ]),
             m('.detailProduct-room-right',[
               m('.detailProduct-order-btn',{
                honclick: psoldout == 1?'':ctrl.goOrderWrapper.bind(ctrl, room, product)

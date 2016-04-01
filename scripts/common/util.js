@@ -481,3 +481,21 @@ util.lastestDate = function(num){
     return dnum+':00'
   }
 }
+
+util.rightButtonText = function() {
+
+  //改变顶部右侧按钮 
+  _nativeAPI.invoke("updateHeaderRightBtn", {
+    action: "show",
+    text: "首页",
+    data: location.origin + '/index.html?from=gtgj'
+  }, function(err, data) {
+    // if (err) {
+    //   return handleError(err);
+    // }
+    // echo(JSON.stringify(data));
+  });
+  _nativeAPI.registerHandler("headerRightBtnClick", function(data) {
+    window.location.replace(data);
+  });
+};

@@ -1,6 +1,5 @@
 util.DEVICE_INFO = null;
 
-
 util._getDeviceInfo = function() {
   var deferred = m.deferred();
   
@@ -120,9 +119,19 @@ util.userCenter = (function() {
         // 3EE6AB789C4DBA9321299B93403DBB66 对应 416581 到付
         // 0A45E599A9314E2A78757D92C697FCE8 对应 411957
         // 771734C2006B3CE81531055263C036E0 对应 12831915
+        // 正式账号  12324363
           util.header = {p:"hbgj",Authorization:"771734C2006B3CE81531055263C036E0",phoneid:"12831915"};
           if(location.href.indexOf('103.37.151.253') > -1 || location.href.indexOf('localhost') > -1){
             util.header = {p:"hbgj",Authorization:"0A45E599A9314E2A78757D92C697FCE8",phoneid:"411957"};
+          }
+          /* 
+           *util.header = {p:"hbgj",Authorization:"0A45E599A9314E2A78757D92C697FCE8",phoneid:"411957"};
+           *sessionStorage.setItem('__header',JSON.stringify(util.header))
+           *sessionStorage.removeItem('__header')
+          */
+          var __header = sessionStorage.getItem('__header');
+          if( __header ){
+            util.header = JSON.parse(__header);
           }
           
           util.HUOLIUSER_INFO={};
