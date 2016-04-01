@@ -107,6 +107,7 @@ fstar.searchApp = (function() {
             keyword:record.keyword,
             type:record.type,
             id: record.id,
+            ids: record.ids,
             lat: record.lat,
             lon: record.lon,
             typeid: record.typeid
@@ -121,6 +122,7 @@ fstar.searchApp = (function() {
             keyword:record.keyword,
             type:record.type,
             id: record.id,
+            ids: record.ids,
             lat: record.lat,
             lon: record.lon,
             typeid: record.typeid
@@ -317,6 +319,7 @@ fstar.searchApp = (function() {
                     keyword: mdata.name,
                     type: '品牌',
                     id: mdata.id,
+                    ids: mdata.ids,
                     lat: '',
                     lon:'',
                     typeid: data.typeid
@@ -332,6 +335,7 @@ fstar.searchApp = (function() {
                     keyword: mdata.name,
                     type: '品牌',
                     id: mdata.id,
+                    ids: mdata.ids,
                     lat: '',
                     lon:'',
                     typeid: data.typeid
@@ -353,6 +357,7 @@ fstar.searchApp = (function() {
                       keyword: mdata.name,
                       type: mdata.type,
                       id: mdata.id,
+                      ids: mdata.ids,
                       lat: mdata.lat,
                       lon: mdata.lon,
                       typeid: mdata.typeid
@@ -366,6 +371,7 @@ fstar.searchApp = (function() {
                       keyword: mdata.name,
                       type: data.name,
                       id: mdata.id,
+                      ids: mdata.ids,
                       lat: mdata.lat,
                       lon: mdata.lon,
                       typeid: data.typeid
@@ -629,7 +635,8 @@ fstar.searchApp = (function() {
             ]),
           ])
         ]),
-        m('.searchApp-cancel', {onclick: ctrl.cancelSearch.bind(ctrl)}, '取消')
+        m('.searchApp-cancel', {onclick: ctrl.searchInputKeyup1.bind(ctrl)}, '完成'),
+        // m('.searchApp-cancel', {onclick: ctrl.cancelSearch.bind(ctrl)}, '取消')
       ]),
       m('.searchApp-result', [
         ctrl.searchResult()?

@@ -18,6 +18,7 @@ fstar.indexApp = (function() {
       type: m.prop('q'),
 
       sid: m.prop(''),
+      sids: m.prop(''),
       lat: m.prop(''),
       lon: m.prop(''),
       typeid: m.prop(''),
@@ -80,6 +81,7 @@ fstar.indexApp = (function() {
           keyword: self.keyword(),
           type: self.type(),
           sid: self.sid(),
+          sids: self.sids(),
           lat: self.lat(),
           lon: self.lon(),
           typeid: self.typeid(),
@@ -133,6 +135,7 @@ fstar.indexApp = (function() {
             self.keyword(data.keyword || '');
             self.type(data.type || 'q');
             self.sid(data.id);
+            self.sids(data.ids);
             self.lat(data.lat);
             self.lon(data.lon);
             self.typeid(data.typeid);
@@ -155,6 +158,7 @@ fstar.indexApp = (function() {
             vm.brands([{
               name:self.keyword(),
               id: self.sid(),
+              ids: self.sids(),
               typeid: self.typeid()
             }]);
           } else {
@@ -572,6 +576,7 @@ fstar.indexApp = (function() {
           vm.keyword(data.keyword);
           vm.type(data.type);
           vm.sid(data.sid);
+          vm.sids(data.sids);
           vm.lat(data.lat);
           vm.lon(data.lon);
           vm.typeid(data.typeid);
@@ -628,7 +633,8 @@ fstar.indexApp = (function() {
     return m('.indexApp', [
       indexApp.searchView(ctrl),
       m('.common-border'),
-      indexApp.myBillView(ctrl)
+      indexApp.myBillView(ctrl),
+      indexApp.redPacketsView(ctrl),
     ]);
   };
 
@@ -733,6 +739,15 @@ fstar.indexApp = (function() {
     ]);
   };
 
+  indexApp.redPacketsView = function(ctrl) {
+    return m('.indexApp-rp', [
+      m('span.indexApp-rp-icon.common_icon_packet'),
+      m('.indexApp-rp-txt', [
+        m('.indexApp-rp-top', '高铁管家红包'),
+        m('.indexApp-rp-bottom', '预订酒店可用高铁管家红包，离店后领取返现'),
+      ]),
+    ]);
+  };
   return indexApp;
 
 })();

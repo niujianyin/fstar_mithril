@@ -117,7 +117,11 @@ fstar.orderApp = (function() {
       orderId: m.prop(false),
       orderInformation: m.prop(false),
 
-
+      hasRedPackets: m.prop(true),
+      isShowRedPackets: m.prop(false),
+      redPacketsData: m.prop(false),
+      selectRedPacket: m.prop(false),
+      isLoadRedPackets: m.prop(false),
 
       isPayDetail:m.prop(false),
       hidePayDetail: function(){
@@ -346,6 +350,19 @@ fstar.orderApp = (function() {
         
 
         if(errorTotal === 0){
+          if(util.dateCount( new Date(), new Date(self.currentDate())) <= 0){
+            var lastestdate = self.lastestDate();
+            var nowdate = (new Date()).getHours();
+            util.log(lastestdate);
+            util.log(nowdate);
+            if(lastestdate <= nowdate){
+              util.alert({
+                content: '您选择的最晚到店时间错误，请重新选择。'
+              });
+              return;
+            }
+          }
+          self.isLoadRedPackets(true);
           self.isPaying(true);
 
           clearTimeout(orderApp.timer);
@@ -406,15 +423,22 @@ fstar.orderApp = (function() {
             "cancelable":'' + self.cancelable(),// 是否可取消：0  是可以取消    1是不可取消
             "customersCount":'' + self.hotelroomNum(),
             "guestCount":'' + self.hotelroomNum(),// 入住人数量
-            "lateArrDateTime": lateArrDateTime,// 最晚到店日期 yyyy-MM-dd HH:mm:ss  "2016-02-03 18:00:00"
+            "lateArrDateTime": '' +lateArrDateTime,// 最晚到店日期 yyyy-MM-dd HH:mm:ss  "2016-02-03 18:00:00"
             "adultCount":'' + self.hotelroomNum(),//成人数量
             "offlineprice": ''+offlineprice,
             "hotelcode":'' + self.hotelcode(),
             "bedtypeprefer":'' + self.bedtypePrefer(),
-            "paramprivate": '' + self.paramprivate()
+            "hoteladdress": ''+ self.hoteladdress(),
+            "packetBackPrice": ''+ self.youhuie()*self.hotelroomNum(),
+            "paramprivate": '' + self.paramprivate() //透传参数
           }
+
           if(self.quickconfirm() !== '-1' && self.quickconfirm() !== 'undefined'){
             orderData.quickconfirm = '' + self.quickconfirm();
+          }
+
+          if(self.selectRedPacket()){
+            orderData.redenvelopeid = ''+self.selectRedPacket().id;
           }
 
           // console.log(orderData);
@@ -462,27 +486,14 @@ fstar.orderApp = (function() {
               }
             });
           } else {
-          //  var url =  window.apiRootPath + '/nativeOrderPreview.html?orderInfo=' + encodeURIComponent(JSON.stringify({
-          //   n: orderData.hotelName,
-          //   ci: orderData.checkInDate,
-          //   co: orderData.checkOutDate,
-          //   r: self.roomTypeName(),
-          //   b: self.breakFastQty(),
-          //   rc: orderData.roomCount,
-          //   pt: orderData.productType, //1-到付酒店 4-预付酒店（下单进入支付流程） 6-部分付（p2p到付）  7-担保到付
-          //   rp: orderData.realPrice,// 付款价格
-          //   olp: orderData.offlineprice //到付
-          // }));
-          //  location.href = url;
-
-            self.isPaying(false);
-            util.hideLoading();
-            util.alert({
-              title: util.HOTEL_PLATFORM_TYPE[util.PLATFORM.CURRENT] + '无法提交订单',
-              content: '请到航班管家或高铁管家提交订单'
-            });
-            return;
-            // self.realPay(orderData);
+            // self.isPaying(false);
+            // util.hideLoading();
+            // util.alert({
+            //   title: util.HOTEL_PLATFORM_TYPE[util.PLATFORM.CURRENT] + '无法提交订单',
+            //   content: '请到航班管家或高铁管家提交订单'
+            // });
+            // return;
+            self.realPay(orderData);
           }
           
         } else {
@@ -492,20 +503,24 @@ fstar.orderApp = (function() {
       },
       realPay: function(orderData) {
         var self = this;
-        var dataReq = {};
+        // var dataReq = {};
         // http://43.241.208.207:9000/hotel/order?handler=create&header={p:%22hbgj%22,Authorization:%22FCB15CEA57CCF82A29DA5A6745079B1D%22,phoneid:%2210235%22}&data={%22pageIndex%22:%220%22,%22count%22:%2210%22}
         
-        dataReq.handler="create";
-        dataReq.header=JSON.stringify(util.header);
-        dataReq.data=JSON.stringify(orderData);
-        util.log(dataReq);
+        // dataReq.handler="create";
+        // dataReq.header=JSON.stringify(util.header);
+        // dataReq.data=JSON.stringify(orderData);
+        var dataReq = '';
+        dataReq +='handler=create&';
+        dataReq +='header='+JSON.stringify(util.header)+'&';
+        dataReq +='data='+JSON.stringify(orderData);
+        // console.log(encodeURI(dataReq));
         // alert(JSON.stringify(util.header));
         // alert(JSON.stringify(dataReq));
         m.request({
-          method: 'get',
+          method: 'post',
           // url: window.apiRootPath + '/hotel/order?handler=create'+'&header='+header+'&data='+JSON.stringify(data)',
           url: util.INTERFACE_ADDORDERDATA,
-          data: dataReq,
+          data: encodeURI(dataReq),
           background: true
         }).then(function(data) {
           // alert(JSON.stringify(data));
@@ -835,7 +850,21 @@ fstar.orderApp = (function() {
           // if(bedType.indexOf('大床') > -1 && bedType.indexOf('双床') > -1 ){
           //   vm.bedtypePrefer('对床型无要求');
           // }
+          
+          vm.hasRedPackets(false);
+          vm.isShowRedPackets(false);
+          vm.redPacketsData(false);
+          vm.selectRedPacket(false);
+
+          if(vm.youhui() == '返现'){
+            vm.getRedPacketsData();
+          } else {
+            vm.hasRedPackets(false);
+          }
         }
+
+        
+        
         if(util.dateCount( new Date(), new Date(vm.currentDate())) <= 0){
           var predate = vm.lastestDate();
           if(predate < 16){ predate = 16}
@@ -956,6 +985,88 @@ fstar.orderApp = (function() {
         });
       },
 
+      getRedPacketsData: function(){
+        var self = this;
+        // http://hotel.huoli.com/rest/redenvelope/getUserRedEnvelope?huoliUserId=10235&status=1
+        var huoliUserId = util.header.phoneid;
+        m.request({
+          url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
+          method: 'GET'
+        }).then(function(result) {
+          self.hasRedPackets(true);
+          if(result.code == 100){
+            var redEnvelopes = result.redEnvelopes;
+            if(redEnvelopes && redEnvelopes.length > 0){
+              self.redPacketsData(redEnvelopes);
+            } else {
+              self.redPacketsData(false);
+            }
+          } else {
+            self.redPacketsData(false);
+          }
+          self.isLoadRedPackets(false);
+          util.redraw();
+          
+        }, function() {
+          util.alert({
+            content: '网络不给力，请稍后再试试吧',
+            ok: '知道了'
+          });
+          util.hideLoading();
+        });
+      },
+      getRedPacketsDataLoad: function(){
+        var self = this;
+        // http://hotel.huoli.com/rest/redenvelope/getUserRedEnvelope?huoliUserId=10235&status=1
+        var huoliUserId = util.header.phoneid;
+        m.request({
+          url: window.domainName+'/rest/redenvelope/getUserRedEnvelope?huoliUserId='+huoliUserId+'&status=1',
+          method: 'GET'
+        }).then(function(result) {
+          if(result.code == 100){
+            var redEnvelopes = result.redEnvelopes;
+            if(redEnvelopes && redEnvelopes.length > 0){
+              self.redPacketsData(redEnvelopes);
+              self.isShowRedPackets(true);
+            } else {
+              self.redPacketsData(false);
+              self.isShowRedPackets(false);
+            }
+          } else {
+            self.redPacketsData(false);
+            self.isShowRedPackets(false);
+          }
+          self.isLoadRedPackets(false);
+          util.redraw();
+          
+        }, function() {
+          util.alert({
+            content: '网络不给力，请稍后再试试吧',
+            ok: '知道了'
+          });
+          util.hideLoading();
+        });
+      },
+
+      showRedPackets: function(){
+        var self = this;
+        if(self.isLoadRedPackets()){
+          self.getRedPacketsDataLoad();
+        } else {
+          self.isShowRedPackets(true);
+          util.redraw();
+        }
+      },
+      hidePacket: function(){
+        var self = this;
+        self.isShowRedPackets(false);
+      },
+      chooseRedPacket: function(redpacket, index){
+        var self = this;
+        self.selectRedPacket(redpacket);
+        self.isShowRedPackets(false);
+      },
+
       deleteInput: function(key){
         var self = this;
         self[key]('');
@@ -1018,6 +1129,7 @@ fstar.orderApp = (function() {
       orderApp.payView(ctrl),
 
       ctrl.isPayDetail()?orderApp.payDetailView(ctrl):'',
+      ctrl.isShowRedPackets()?orderApp.redPacketsView(ctrl):'',
     ];
   };
 
@@ -1105,6 +1217,18 @@ fstar.orderApp = (function() {
       lastestDate = util.dateFormatFmt( util.nextDate(new Date(lastestDate),1), "yyyy/MM/dd");
     }
 
+    // 红包返现价格前端计算
+    var num = ctrl.hotelroomNum();
+    var totalPrice = num*ctrl.cprice();
+    var redpacketPrice=0;
+    if(ctrl.productType() == 1){
+       // 到付
+       redpacketPrice= Math.ceil(totalPrice*0.08);
+    } else {
+       // 预付
+       redpacketPrice= Math.ceil(totalPrice*0.03);
+    }
+
     return m('.orderApp-form', [
         // 入住人信息
         m('.common-table2.mt0', [
@@ -1132,7 +1256,7 @@ fstar.orderApp = (function() {
                         m('input.orderApp-form-person-passengers',{
                           type:'text', 
                           autocomplete:"off",
-                          placeholder: '姓名，1间房填1个人',
+                          placeholder: '请填入住人真实姓名',
                           value: ctrl['dataCustomer_'+i](),
                           onfocus: ctrl.getFocus.bind(ctrl, 'validateCustomer_'+i),
                           onkeyup: ctrl.onKeyDown.bind(ctrl, 'dataCustomer_'+i),
@@ -1171,9 +1295,13 @@ fstar.orderApp = (function() {
             m('li.clearfix',{
               id: 'orderApp-lastest'
             }, [
-              m('span.label', '最晚到店日期'),
+              m('span.label', '最晚到店日期  (' + lastestDate +')'),
+              m('span.labeltip', [
+                m('.labeltip-icon', '＊'),
+                '如晚于此时间，酒店不保留房间'
+              ]),
               m('span.content', [
-                m('span.orderApp-form-room-lastest-time', lastestDate),
+                // m('span.orderApp-form-room-lastest-time', lastestDate),
                 m('span.orderApp-form-room-lastest-input', [
                   m('span.orderApp-form-room-lastest-input-reduce', {
                     className: ctrl.lastestDateReduce() ? 'no-tap' : '', 
@@ -1198,10 +1326,33 @@ fstar.orderApp = (function() {
                 m('span.orderApp-bedtype', ctrl.bedtypePrefer()),
                 m('.orderApp-arrow-right.common-icon-more-right')
               ])
-            ])
+            ]),
           ]),
           m('.common-border')
         ]),
+        
+        ctrl.hasRedPackets()?
+        m('.orderApp-redpacket', {
+          honclick: ctrl.redPacketsData()? ctrl.showRedPackets.bind(ctrl):'',
+        },[
+          m('span.orderApp-redpacket-icon.common_icon_packet'),
+          m('.orderApp-redpacket-txt', [
+            ctrl.redPacketsData()?
+            ctrl.selectRedPacket()?[
+              m('.orderApp-redpacket-top', [
+                '高铁红包返现',
+                ctrl.originalPayType() == 1? ctrl.selectRedPacket().prepayBack*100:ctrl.selectRedPacket().collectBack*100,
+                '%，即',
+                m('span.orderApp-redpacket-price','￥'+redpacketPrice),
+              ]),
+              m('.orderApp-redpacket-bottom', '离店后，￥'+redpacketPrice+'现金将返入您的高铁账号'),
+            ]:'请选择要使用的红包':[
+              m('.orderApp-redpacket-top', '您没有可用的高铁管家红包'),
+              m('.orderApp-redpacket-bottom', '您在高铁管家购买火车票后,会获赠红包'),
+            ],
+          ]),
+          m('.orderApp-arrow-right.common-icon-more-right')
+        ]):'',
 
         // 部分付
         (ctrl.productType() == 6) ?
@@ -1376,6 +1527,12 @@ fstar.orderApp = (function() {
             m('span',util.dateFormatFmt(ctrl.currentDate(), 'yyyy年MM月dd日')),
             ' 18:00前，可免费变更或取消订单，服务费全部原路退回。之后，取消或变更将扣除首晚服务费。']
           ):'',
+          m('li', [m('span.orderApp-icon-circle'), '未标注『立即确认』的产品需等待酒店确认，如无法确认则全额退款。']
+          ),
+          ctrl.guzhecancelable() == '1'?m('li', [m('span.orderApp-icon-circle'), '标注『不可取消』的产品订单提交后不可取消或修改，如未预订成功，预付费用全部原路退还。']
+          ):'',
+
+          
           // m('li', [m('span.orderApp-icon-circle'), '确认前，免费取消，预付的费用全额退回。']
           // ),
           // m('li', [m('span.orderApp-icon-circle'), '成功确认后，不可取消或变更订单。'])
@@ -1578,7 +1735,28 @@ fstar.orderApp = (function() {
         ]),
       ]);
     }
-    
+  };
+
+  orderApp.redPacketsView = function(ctrl) {
+    return m('.orderApp-packet.show',[
+      m('.orderApp-packet-bg',{
+        onclick: ctrl.hidePacket.bind(ctrl)
+      }),
+      m('.orderApp-packet-main',[
+        m('.orderApp-packet-title', '选择高铁红包'),
+        m('.orderApp-packet-items',[
+          ctrl.redPacketsData().map(function(value, index){
+            return m('.orderApp-packet-item',{
+              className: value.id==ctrl.selectRedPacket().id? 'selected':'',
+              onclick: ctrl.chooseRedPacket.bind(ctrl, value, index)
+            },[
+              m('.orderApp-packet-item-top','高铁红包'),
+              m('.orderApp-packet-item-bottom','预付返现'+value.prepayBack*100+'%，到店付返现'+value.collectBack*100+'%，有效期至 '+value.expire),
+            ]);
+          })
+        ])
+      ])
+    ]);
   };
 
   return orderApp;

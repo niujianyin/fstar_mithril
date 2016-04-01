@@ -19,7 +19,6 @@
   <script type="text/javascript">
     window.domainName = location.origin;
     window.apiRootPath = domainName;
-    window.domainName = 'http://43.241.208.207:9000';
   </script>
   <script src="scripts/lib/lib.js"></script>
   <script src="scripts/common/common.js"></script>
@@ -257,8 +256,8 @@
         var arrdate = trip.arrive_date;
         var arrName = trip.arrive_name;
         var arrCode = trip.arrive_code;
-        // console.log(trip);
-        // return;
+        console.log(trip);
+        return;
         if(arrCode){
           var appName = util.cookie.getItem('appName');
           var from = 'gtgj';
@@ -331,8 +330,8 @@
         }
       },
       controller: function() {
-        // url   https://hotel.rsscc.cn/gjHotelRecommend.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
-        // url   http://127.0.0.1:8080/gjHotelRecommend.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
+        // url   http://localhost/gjHotelRecommend.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
+        // url   http://localhost/gjHotelRecommend.html?tripparam=eyJndWlkIjoiZWYwNTg5Y2YtMDU3Yi00OTgwLTg4M2QtMDY1MjlhYmYxNDdkIiwidHJhaW5fbm8iOiJLOTc0L0s5NzUiLCJkZXBhcnRfZGF0ZSI6IjIwMTUtMTItMDQiLCJkZXBhcnRfbmFtZSI6IuaxieWPoyIsImRlcGFydF9jb2RlIjoiSEtOIiwiZGVwYXJ0X3RpbWUiOiIxODoyMiIsImFycml2ZV9uYW1lIjoi6ZW/5pilIiwiYXJyaXZlX2NvZGUiOiJDQ1QiLCJhcnJpdmVfdGltZSI6IjAzOjM0IiwiYXJyaXZlX2RhdGUiOiIyMDE1LTEyLTA2Iiwib3JkZXJfaWQiOiJFMTgyNzA4MTc3Iiwic3ViX29yZGVyX2lkIjoiRTE4MjcwODE3NzEwNTAwMTIiLCJwYWdlIjoidHJpcCJ9
         var self = this;
         var tripparam = self.getQueryString('tripparam');
         var tripStr;

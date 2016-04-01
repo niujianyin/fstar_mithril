@@ -26,7 +26,9 @@
 
 
   <!-- https://43.241.208.207:9000/hotel1/ -->
-  cd ~/Documents/workspace/fstarVue/webapp/src
+ <!--  cd ~/Documents/workspace/fstarVue/webapp/src -->
+ <!-- 发布到正式服务器 发布要慎重-->
+  cd ~/workspace/github/fstar_mithril
   ./pb.sh
   <!-- ./new_debug.sh -->
   <!-- 测试服务器地址 -->
@@ -36,7 +38,11 @@
   
   <!-- 测试环境：搜索接口：http://103.37.151.253:9000/hotel/s -->
   http://103.37.151.253:9000/index.html
+  <!-- 发布到测试服务器 -->
+  cd ~/workspace/github/fstar_mithril
   ./debug_new.sh
+
+  testurl:http://103.37.151.253:9000/index.html?from=hbgj
 
   <!-- https://43.241.208.207:9443/hotel1/ -->
 
@@ -50,7 +56,24 @@
   cd /usr/local/etc/nginx
   nginx.conf
   http://localhost/index.html
+
+  cd ~/workspace/github/fstar_mithril
+  sudo fis3 server start -p 15080
+  sudo fis3 release -w
   <!-- /usr/local/etc/nginx/nginx.conf  -->
+  
+  <!-- 网页版测试账号 -->
+  util.header = {p:"hbgj",Authorization:"0A45E599A9314E2A78757D92C697FCE8",phoneid:"411957"};
+  sessionStorage.setItem('__header',JSON.stringify(util.header))
+  <!-- sessionStorage.removeItem('__header') -->
+
+
+
+
+
+
+
+
 
   <!-- dev0 测试服务器 -->
   <!-- sudo fis release -mp -d /Users/njy/Documents/publish/fe/5star_customer -->
@@ -58,7 +81,7 @@
   <!-- 连接服务器 -->
   sudo ssh -i cn-dev.pem ec2-user@dev0.xiayizhan.mobi
   <!-- 上传文件 -->
-  cd /Users/njy/Documents/workspace/fstarVue/webapp/src/
+  cd ~/workspace/github/fstar_mithril
   <!-- ./fe.sh -->
   ./debug.sh
   <!-- 推送到tomcat上 -->
@@ -70,7 +93,7 @@
   <!-- 连接服务器 -->
   ssh root@43.241.208.237
   <!-- 上传文件 -->
-  cd /Users/njy/Documents/workspace/fstarVue/webapp/src/
+  cd ~/workspace/github/fstar_mithril
   <!-- ./fe.sh -->
   ./debug2.sh
   <!-- 推送到tomcat上 -->
@@ -79,7 +102,10 @@
   <!-- 测试服务器地址 -->
   http://hotel-test.rsscc.com/
 
-
+  https://hotel.rsscc.cn/
+  
+  <!-- nginx 跟踪日志 -->
+  tail -f  /usr/local/etc/nginx/logs/access.log
   
 </body>
 </html>
