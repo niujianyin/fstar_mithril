@@ -1008,10 +1008,10 @@ fstar.orderApp = (function() {
           util.redraw();
           
         }, function() {
-          util.alert({
-            content: '网络不给力，请稍后再试试吧',
-            ok: '知道了'
-          });
+          // util.alert({
+          //   content: '网络不给力，请稍后再试试吧',
+          //   ok: '知道了'
+          // });
           util.hideLoading();
         });
       },
@@ -1040,10 +1040,10 @@ fstar.orderApp = (function() {
           util.redraw();
           
         }, function() {
-          util.alert({
-            content: '网络不给力，请稍后再试试吧',
-            ok: '知道了'
-          });
+          // util.alert({
+          //   content: '网络不给力，请稍后再试试吧',
+          //   ok: '知道了'
+          // });
           util.hideLoading();
         });
       },
